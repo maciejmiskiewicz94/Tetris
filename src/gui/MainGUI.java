@@ -29,7 +29,7 @@ public class MainGUI extends JFrame {
     private JLabel CurrentStatePanel;
 
     public MainGUI() {
-        super("Hello World");
+        super("Tetris simulator (main window)");
         $$$setupUI$$$();
         setContentPane(mainPanel);
         pack();
@@ -40,6 +40,7 @@ public class MainGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser openFile = new JFileChooser();
                 openFile.showOpenDialog(null);
+                TilePickerGUI tilegui = new TilePickerGUI();
             }
         }));
 
