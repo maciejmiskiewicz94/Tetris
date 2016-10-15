@@ -35,7 +35,13 @@ public class MainGUI extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
+        loadTilesButton.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser openFile = new JFileChooser();
+                openFile.showOpenDialog(null);
+            }
+        }));
 
     }
 
