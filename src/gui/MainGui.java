@@ -5,14 +5,21 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileFilter;
 
 /**
  * Created by Maciej on 2016-10-15.
  */
-public class MainGUI extends JFrame {
+public class MainGui extends JFrame {
+
+    /*
+    * Main gui components
+    * */
     private JPanel mainPanel;
     private JButton loadTilesButton;
     private JButton chooseTilesButton;
@@ -22,29 +29,63 @@ public class MainGUI extends JFrame {
     private JButton startNStepsButton;
     private JSpinner nStepsPicker;
     private JButton autoSerializationMinsButton;
-    private JSpinner SerializationPicker;
+    private JSpinner serializationPicker;
     private JButton backtrackingParameterButton;
-    private JSpinner BacktrackingPicker;
+    private JSpinner backtrackingPicker;
     private JButton saveCurrentStateButton;
-    private JLabel CurrentStatePanel;
+    private JLabel currentStatePanel;
 
-    public MainGUI() {
+    /*
+    * Tiles gui window
+    * */
+    private TilePickerGui tileGui;
+
+    /*
+    * Extra components
+    * */
+    private File userFile;
+
+    public MainGui() {
         super("Tetris simulator (main window)");
         $$$setupUI$$$();
         setContentPane(mainPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        loadTilesButton.addActionListener((new ActionListener() {
+        //Extra initializations with lower priority
+        this.tileGui = new TilePickerGui();
+
+        loadTilesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser openFile = new JFileChooser();
-                openFile.showOpenDialog(null);
-                TilePickerGUI tilegui = new TilePickerGUI();
+                loadTilesButton.setEnabled(false);
+                if (loadTilesFromFile()) currentStatePanel.setText("Tiles loaded from file!");
+                else currentStatePanel.setText("Error with file loading!");
+                loadTilesButton.setEnabled(true);
             }
-        }));
+        });
 
     }
+
+    private boolean loadTilesFromFile() {
+        boolean loaded = false;
+        JFileChooser openFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT file", "txt");
+        openFile.setFileFilter(filter);
+        int result = openFile.showDialog(null, "Choose file with tiles");
+        if (result == JFileChooser.APPROVE_OPTION) {
+            userFile = openFile.getSelectedFile();
+            loaded = true;
+            System.out.println("User has chosen a proper file");
+            
+
+            return loaded;
+        } else {
+            System.out.println("NO FILE");
+            return loaded;
+        }
+    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -87,13 +128,13 @@ public class MainGUI extends JFrame {
         autoSerializationMinsButton.setEnabled(true);
         autoSerializationMinsButton.setText("Auto serialization (mins)");
         mainPanel.add(autoSerializationMinsButton, new GridConstraints(6, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, -1), null, 0, false));
-        SerializationPicker = new JSpinner();
-        mainPanel.add(SerializationPicker, new GridConstraints(6, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        serializationPicker = new JSpinner();
+        mainPanel.add(serializationPicker, new GridConstraints(6, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         backtrackingParameterButton = new JButton();
         backtrackingParameterButton.setText("Backtracking parameter");
         mainPanel.add(backtrackingParameterButton, new GridConstraints(7, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, -1), null, 0, false));
-        BacktrackingPicker = new JSpinner();
-        mainPanel.add(BacktrackingPicker, new GridConstraints(7, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        backtrackingPicker = new JSpinner();
+        mainPanel.add(backtrackingPicker, new GridConstraints(7, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         saveCurrentStateButton = new JButton();
         saveCurrentStateButton.setText("Save current state");
         mainPanel.add(saveCurrentStateButton, new GridConstraints(8, 2, 2, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, -1), null, 0, false));
@@ -103,9 +144,9 @@ public class MainGUI extends JFrame {
         mainPanel.add(panel1, new GridConstraints(0, 0, 10, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(400, 400), new Dimension(400, 300), new Dimension(400, 400), 0, false));
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        CurrentStatePanel = new JLabel();
-        CurrentStatePanel.setText("STATE OF THE PROGRAM");
-        mainPanel.add(CurrentStatePanel, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        currentStatePanel = new JLabel();
+        currentStatePanel.setText("STATE OF THE PROGRAM");
+        mainPanel.add(currentStatePanel, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

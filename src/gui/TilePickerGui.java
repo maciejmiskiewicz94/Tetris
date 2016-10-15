@@ -9,19 +9,17 @@ import java.awt.*;
 /**
  * Created by Maciej on 2016-10-15.
  */
-public class TilePickerGUI extends JFrame {
+public class TilePickerGui extends JFrame {
     private JButton acceptTilesButton;
     private JPanel rootPanel;
     private JButton clearButton;
 
-    public TilePickerGUI() {
+    public TilePickerGui() {
         super("Tetris simulator (tiles picker window)");
         $$$setupUI$$$();
         setContentPane(rootPanel);
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
