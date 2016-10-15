@@ -30,17 +30,10 @@ public class MainGUI extends JFrame {
 
     public MainGUI() {
         super("Hello World");
-        loadTilesButton = new JButton();
         $$$setupUI$$$();
         setContentPane(mainPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loadTilesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showConfirmDialog(MainGUI.this, "clicked!");
-            }
-        });
         setVisible(true);
     }
 
@@ -56,7 +49,6 @@ public class MainGUI extends JFrame {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        createUIComponents();
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayoutManager(9, 3, new Insets(0, 0, 0, 0), -1, -1, false, true));
         nStepsPicker = new JSpinner();
@@ -73,6 +65,7 @@ public class MainGUI extends JFrame {
         startButton = new JButton();
         startButton.setText("Start");
         mainPanel.add(startButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(388, 32), null, 0, false));
+        loadTilesButton = new JButton();
         loadTilesButton.setText("Load tiles");
         mainPanel.add(loadTilesButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(388, 32), null, 0, false));
         chooseTilesButton = new JButton();
