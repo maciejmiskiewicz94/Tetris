@@ -69,11 +69,7 @@ public class MainGUI extends JFrame {
         mainPanel.add(stopButton, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 32), null, 0, false));
         startButton = new JButton();
         startButton.setText("Start");
-<<<<<<< HEAD
         mainPanel.add(startButton, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 32), null, 0, false));
-=======
-        mainPanel.add(startButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(388, 32), null, 0, false));
->>>>>>> 8baf6fdc174e8c15768807853d34524362e049f7
         loadTilesButton = new JButton();
         loadTilesButton.setText("Load tiles");
         mainPanel.add(loadTilesButton, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 32), null, 0, false));
