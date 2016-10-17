@@ -15,4 +15,13 @@ public class Tile {
         this.height = h;
         this.tile=tile;
     }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
+    public int[][] getTile(){
+        return tile;
+    }
 }

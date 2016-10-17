@@ -1,11 +1,14 @@
 package data;
 
 import data.interfaces.Manager;
+import gui.TilesGuiGenerator;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Created by Borys on 10/16/16.
@@ -16,9 +19,16 @@ public class TilesManager implements Manager {
     private Tile[] tiles;
     private int wellWidth;
     private int numberOfTiles;
+    private TilesGuiGenerator guiGenerator;
+
+    private int maxTileHeight;
+    private int maxTileWidth;
 
     public TilesManager(File f){
+        this.maxTileHeight=0;
+        this.maxTileWidth=0;
         readTiles(f);
+        guiGenerator = new TilesGuiGenerator(1);
     }
 
     @Override
@@ -31,6 +41,10 @@ public class TilesManager implements Manager {
             for(int i=0;i<numberOfTiles;i++){
                 int width = sc.nextInt();
                 int height = sc.nextInt();
+
+                if(height>maxTileHeight) maxTileHeight=height;
+                if(width>maxTileWidth) maxTileWidth=width;
+
                 int[][] tile = new int[height][width];
                 sc.nextLine();
                 for(int l=0;l<height;l++){
@@ -45,6 +59,16 @@ public class TilesManager implements Manager {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Stack<JPanel> generateGuiForTiles() {
+        Stack<JPanel> panels = new Stack<JPanel>();
+        for(int i=0;i<numberOfTiles;i++){
+            panels.add(guiGenerator.generatePanel(tiles[i],maxTileHeight,maxTileWidth));
+        }
+        return panels;
+    }
+
     public int getWellWidth(){
         return this.wellWidth;
     }

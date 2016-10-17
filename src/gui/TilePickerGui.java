@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Stack;
 
 import static javax.swing.BoxLayout.PAGE_AXIS;
 
@@ -25,7 +26,7 @@ public class TilePickerGui extends JFrame {
         setContentPane(rootPanel);
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
+//        setResizable(false);
     }
 
     private void createUIComponents() {
@@ -39,7 +40,7 @@ public class TilePickerGui extends JFrame {
         buttonsPanel.add(clearButton, BorderLayout.AFTER_LAST_LINE);
 
         paneScrollPane = new JScrollPane();
-        paneScrollPane.setPreferredSize(new Dimension(500, 450));
+        paneScrollPane.setPreferredSize(new Dimension(400, 350));
 
         tilesPanel = new JPanel();
         tilesPanel.setLayout(new BoxLayout(tilesPanel, PAGE_AXIS));
@@ -48,5 +49,10 @@ public class TilePickerGui extends JFrame {
 
         rootPanel.add(paneScrollPane);
         rootPanel.add(buttonsPanel);
+    }
+
+    public void showTiles(Stack<JPanel> jPanels) {
+
+        while (!jPanels.empty()) tilesPanel.add(jPanels.pop());
     }
 }

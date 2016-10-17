@@ -83,8 +83,8 @@ public class MainGui extends JFrame {
             System.out.println("User has chosen a proper file");
 
             manager = new TilesManager(userFile);
-
-//            tileGui.setVisible(true);
+            tileGui.showTiles(manager.generateGuiForTiles());
+            tileGui.setVisible(true);
             return loaded;
         } else {
             System.out.println("NO FILE");
