@@ -26,7 +26,7 @@ public class TilePickerGui extends JFrame {
         setContentPane(rootPanel);
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        setResizable(false);
+        setResizable(false);
     }
 
     private void createUIComponents() {
@@ -40,7 +40,7 @@ public class TilePickerGui extends JFrame {
         buttonsPanel.add(clearButton, BorderLayout.AFTER_LAST_LINE);
 
         paneScrollPane = new JScrollPane();
-        paneScrollPane.setPreferredSize(new Dimension(400, 350));
+        paneScrollPane.setPreferredSize(new Dimension(300, 350));
 
         tilesPanel = new JPanel();
         tilesPanel.setLayout(new BoxLayout(tilesPanel, PAGE_AXIS));

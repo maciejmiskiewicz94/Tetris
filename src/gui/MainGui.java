@@ -68,6 +68,13 @@ public class MainGui extends JFrame {
                 loadTilesButton.setEnabled(true);
             }
         });
+        chooseTilesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tileGui.setVisible(true);
+                setStatus("Tiles chooser is open");
+            }
+        });
 
     }
 
