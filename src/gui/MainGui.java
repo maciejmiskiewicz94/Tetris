@@ -3,6 +3,7 @@ package gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import data.TilesManager;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -44,6 +45,7 @@ public class MainGui extends JFrame {
     * Extra components
     * */
     private File userFile;
+    private TilesManager manager;
 
     public MainGui() {
         super("Tetris simulator (main window)");
@@ -59,8 +61,10 @@ public class MainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadTilesButton.setEnabled(false);
-                if (loadTilesFromFile()) currentStatePanel.setText("Tiles loaded from file!");
-                else currentStatePanel.setText("Error with file loading!");
+                if (loadTilesFromFile()) setStatus("Tiles loaded from file!");
+                else {
+                    setStatus("Error with file loading!");
+                }
                 loadTilesButton.setEnabled(true);
             }
         });
@@ -77,13 +81,19 @@ public class MainGui extends JFrame {
             userFile = openFile.getSelectedFile();
             loaded = true;
             System.out.println("User has chosen a proper file");
-            tileGui.setVisible(true);
 
+            manager = new TilesManager(userFile);
+
+//            tileGui.setVisible(true);
             return loaded;
         } else {
             System.out.println("NO FILE");
             return loaded;
         }
+    }
+
+    private void setStatus(String status) {
+        currentStatePanel.setText(status);
     }
 
 
