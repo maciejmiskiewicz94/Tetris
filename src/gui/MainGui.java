@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileFilter;
+import java.util.Scanner;
 
 /**
  * Created by Maciej on 2016-10-15.
@@ -77,7 +77,7 @@ public class MainGui extends JFrame {
             userFile = openFile.getSelectedFile();
             loaded = true;
             System.out.println("User has chosen a proper file");
-            
+            tileGui.setVisible(true);
 
             return loaded;
         } else {
