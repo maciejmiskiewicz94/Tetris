@@ -50,4 +50,10 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
 
         return result;
     }
+    public JPanel generateWell(int maxWidth)
+    {
+        JPanel result=new JPanel();
+
+        return result;
+    }
 }

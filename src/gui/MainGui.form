@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.MainGui">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="10" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="13" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="1188" height="1000"/>
@@ -12,119 +12,10 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="be1f6" class="javax.swing.JSpinner" binding="nStepsPicker">
-        <constraints>
-          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="3f353" class="javax.swing.JButton" binding="startNStepsButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Start (n steps)"/>
-        </properties>
-      </component>
-      <component id="47886" class="javax.swing.JButton" binding="pauseButton" default-binding="true">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Pause"/>
-        </properties>
-      </component>
-      <component id="73c12" class="javax.swing.JButton" binding="stopButton" default-binding="true">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Stop"/>
-        </properties>
-      </component>
-      <component id="fd200" class="javax.swing.JButton" binding="startButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Start"/>
-        </properties>
-      </component>
-      <component id="3c5f5" class="javax.swing.JButton" binding="loadTilesButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Load tiles"/>
-        </properties>
-      </component>
-      <component id="f0bbe" class="javax.swing.JButton" binding="chooseTilesButton" default-binding="true">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="32"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Choose tiles"/>
-        </properties>
-      </component>
-      <component id="bbbd3" class="javax.swing.JButton" binding="autoSerializationMinsButton" default-binding="true">
-        <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <enabled value="true"/>
-          <text value="Auto serialization (mins)"/>
-        </properties>
-      </component>
-      <component id="e84fa" class="javax.swing.JSpinner" binding="serializationPicker">
-        <constraints>
-          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="eee17" class="javax.swing.JButton" binding="backtrackingParameterButton" default-binding="true">
-        <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Backtracking parameter"/>
-        </properties>
-      </component>
-      <component id="a2571" class="javax.swing.JSpinner" binding="backtrackingPicker">
-        <constraints>
-          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="fab3a" class="javax.swing.JButton" binding="saveCurrentStateButton" default-binding="true">
-        <constraints>
-          <grid row="8" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Save current state"/>
-        </properties>
-      </component>
       <grid id="262ef" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="10" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="13" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="400" height="400"/>
             <preferred-size width="400" height="300"/>
             <maximum-size width="400" height="400"/>
@@ -144,12 +35,157 @@
       </grid>
       <component id="705a8" class="javax.swing.JLabel" binding="currentStatePanel">
         <constraints>
-          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="STATE OF THE PROGRAM"/>
         </properties>
       </component>
+      <tabbedpane id="16d64" binding="tabbedPane1" default-binding="true">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="66014" layout-manager="GridLayoutManager" row-count="12" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Program control"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="3c5f5" class="javax.swing.JButton" binding="loadTilesButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Load tiles"/>
+                </properties>
+              </component>
+              <vspacer id="e162e">
+                <constraints>
+                  <grid row="1" column="5" row-span="11" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="f0bbe" class="javax.swing.JButton" binding="chooseTilesButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Choose tiles"/>
+                </properties>
+              </component>
+              <component id="fd200" class="javax.swing.JButton" binding="startButton" default-binding="true">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Start"/>
+                </properties>
+              </component>
+              <component id="73c12" class="javax.swing.JButton" binding="stopButton" default-binding="true">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Stop"/>
+                </properties>
+              </component>
+              <component id="82711" class="javax.swing.JButton" binding="pauseButton" default-binding="true">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Pause"/>
+                </properties>
+              </component>
+              <component id="692a0" class="javax.swing.JButton" binding="startNStepsButton" default-binding="true">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="32"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Start (n steps)"/>
+                </properties>
+              </component>
+              <component id="5d291" class="javax.swing.JSpinner" binding="startNStepsPicker">
+                <constraints>
+                  <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="a225b" class="javax.swing.JSpinner" binding="serializationPicker">
+                <constraints>
+                  <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="fc2c6" class="javax.swing.JButton" binding="autoSerializationMinsButton" default-binding="true">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <text value="Auto serialization (mins)"/>
+                </properties>
+              </component>
+              <component id="208d3" class="javax.swing.JSpinner" binding="backtrackingPicker">
+                <constraints>
+                  <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="91933" class="javax.swing.JButton" binding="backtrackingParameterButton" default-binding="true">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Backtracking parameter"/>
+                </properties>
+              </component>
+              <component id="446ea" class="javax.swing.JButton" binding="saveCurrentStateButton" default-binding="true">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Save current state"/>
+                </properties>
+              </component>
+              <component id="39ee7" class="javax.swing.JButton" binding="loadProgramStateButton" default-binding="true">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Load program state"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
     </children>
   </grid>
 </form>

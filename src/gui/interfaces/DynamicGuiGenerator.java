@@ -9,4 +9,5 @@ import javax.swing.*;
  */
 public interface DynamicGuiGenerator {
     public JPanel generatePanel(Tile singleTile, int maxHeight, int maxWidth);
+    public JPanel generateWell(int maxWidth);
 }
