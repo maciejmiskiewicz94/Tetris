@@ -12,8 +12,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="262ef" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <grid id="262ef" binding="wellPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints>
           <grid row="0" column="0" row-span="14" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="400" height="400"/>
@@ -27,20 +26,10 @@
         <border type="none"/>
         <children>
           <vspacer id="72ba4">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
+            <constraints/>
           </vspacer>
         </children>
       </grid>
-      <component id="705a8" class="javax.swing.JLabel" binding="currentStatePanel">
-        <constraints>
-          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="STATE OF THE PROGRAM"/>
-        </properties>
-      </component>
       <grid id="6c8c2" binding="buttonPanel" layout-manager="GridLayoutManager" row-count="22" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -85,16 +74,6 @@
             </constraints>
             <properties>
               <text value="Auto Serialization (mins)"/>
-            </properties>
-          </component>
-          <component id="91933" class="javax.swing.JButton" binding="backtrackingParameterButton" default-binding="true">
-            <constraints>
-              <grid row="19" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="200" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Backtracking parameter"/>
             </properties>
           </component>
           <component id="446ea" class="javax.swing.JButton" binding="saveCurrentStateButton" default-binding="true">
@@ -174,6 +153,14 @@
               <grid row="19" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
+          </component>
+          <component id="b1394" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="19" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Backtracking parameter"/>
+            </properties>
           </component>
         </children>
       </grid>

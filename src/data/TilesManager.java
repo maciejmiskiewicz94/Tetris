@@ -19,7 +19,7 @@ public class TilesManager implements Manager {
     private Tile[] tiles;
     private int wellWidth;
     private int numberOfTiles;
-    private TilesGuiGenerator guiGenerator;
+    public TilesGuiGenerator guiGenerator;
 
     private int maxTileHeight;
     private int maxTileWidth;

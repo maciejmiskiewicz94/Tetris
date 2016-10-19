@@ -3,6 +3,7 @@ package gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import com.sun.deploy.panel.JavaPanel;
 import data.TilesManager;
 
 import javax.swing.*;
@@ -29,13 +30,13 @@ public class MainGui extends JFrame {
     private JButton pauseButton;
     private JButton startNStepsButton;
     private JLabel currentStatePanel;
-    private JButton backtrackingParameterButton;
     private JButton saveCurrentStateButton;
     private JButton loadProgramStateButton;
     private JPanel buttonPanel;
     private JSpinner serializationPicker;
     private JSpinner startNStepsPicker;
     private JSpinner backtrackingPicker;
+    private JPanel wellPanel;
 
     /*
     * Tiles gui window
@@ -55,6 +56,12 @@ public class MainGui extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        JScrollPane scrollPanel = new JScrollPane(wellPanel);
+        JPanel properWellPanel = new JPanel();
+        scrollPanel.getViewport().add(properWellPanel);
+        properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        //wellPanel.add(properWellPanel);
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Control program"));
         //Extra initializations with lower priority
         this.tileGui = new TilePickerGui();
@@ -77,6 +84,18 @@ public class MainGui extends JFrame {
                 setStatus("Tiles chooser is open");
             }
         });
+        startButton.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int backtracking_param = (int) backtrackingPicker.getValue();
+                for (int i = 0; i < backtracking_param; i++) {
+                    JPanel wellpanel = new JPanel();
+                    wellpanel = manager.guiGenerator.generateWell(manager.getWellWidth());
+                    properWellPanel.add(wellpanel);
+                }
+
+            }
+        }));
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,15 +163,12 @@ public class MainGui extends JFrame {
         mainPanel.setMaximumSize(new Dimension(700, 500));
         mainPanel.setMinimumSize(new Dimension(700, 500));
         mainPanel.setPreferredSize(new Dimension(700, 500));
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.setVisible(true);
-        mainPanel.add(panel1, new GridConstraints(0, 0, 14, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(400, 400), new Dimension(400, 300), new Dimension(400, 400), 0, false));
+        wellPanel = new JPanel();
+        wellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        wellPanel.setVisible(true);
+        mainPanel.add(wellPanel, new GridConstraints(0, 0, 14, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(400, 400), new Dimension(400, 300), new Dimension(400, 400), 0, false));
         final Spacer spacer1 = new Spacer();
-        panel1.add(spacer1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        currentStatePanel = new JLabel();
-        currentStatePanel.setText("STATE OF THE PROGRAM");
-        mainPanel.add(currentStatePanel, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        wellPanel.add(spacer1);
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayoutManager(22, 5, new Insets(0, 0, 0, 0), -1, -1));
         mainPanel.add(buttonPanel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -169,9 +185,6 @@ public class MainGui extends JFrame {
         final JLabel label1 = new JLabel();
         label1.setText("Auto Serialization (mins)");
         buttonPanel.add(label1, new GridConstraints(18, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        backtrackingParameterButton = new JButton();
-        backtrackingParameterButton.setText("Backtracking parameter");
-        buttonPanel.add(backtrackingParameterButton, new GridConstraints(19, 0, 1, 2, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, -1), null, 0, false));
         saveCurrentStateButton = new JButton();
         saveCurrentStateButton.setText("Save current state");
         buttonPanel.add(saveCurrentStateButton, new GridConstraints(20, 0, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, -1), null, 0, false));
@@ -196,6 +209,9 @@ public class MainGui extends JFrame {
         buttonPanel.add(startNStepsPicker, new GridConstraints(17, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         backtrackingPicker = new JSpinner();
         buttonPanel.add(backtrackingPicker, new GridConstraints(19, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setText("Backtracking parameter");
+        buttonPanel.add(label2, new GridConstraints(19, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
