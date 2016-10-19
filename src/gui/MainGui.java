@@ -73,6 +73,8 @@ public class MainGui extends JFrame {
         JPanel properWellPanel = new JPanel();
         scrollPanel.getViewport().add(properWellPanel);
         properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
+        scrollPanel.setMaximumSize(new Dimension(900, 900));
         wellPanel.add(scrollPanel);
 
 
