@@ -57,12 +57,16 @@ public class MainGui extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        JScrollPane scrollPanel = new JScrollPane();
-        scrollPanel.setPreferredSize(new Dimension(500, 500));
+        JScrollPane scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanel.setMaximumSize(new Dimension(300, -1));
+      //  scrollPanel.setPreferredSize(new Dimension(300, -1));
+        // scrollPanel.setPreferredSize(new Dimension(500, 500));
+        scrollPanel.setAutoscrolls(true);
         JPanel properWellPanel = new JPanel();
         scrollPanel.getViewport().add(properWellPanel);
+        //  properWellPanel.setBackground(Color.BLUE);
+        //  wellPanel.setBackground(Color.RED);
         properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
         wellPanel.add(scrollPanel);
 
 
@@ -165,19 +169,19 @@ public class MainGui extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayoutManager(14, 3, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel.setLayout(new GridLayoutManager(14, 4, new Insets(0, 0, 0, 0), -1, -1));
         mainPanel.setMaximumSize(new Dimension(700, 500));
         mainPanel.setMinimumSize(new Dimension(700, 500));
         mainPanel.setPreferredSize(new Dimension(700, 500));
         wellPanel = new JPanel();
         wellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         wellPanel.setVisible(true);
-        mainPanel.add(wellPanel, new GridConstraints(0, 0, 14, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(400, 400), new Dimension(400, 300), new Dimension(400, 400), 0, false));
+        mainPanel.add(wellPanel, new GridConstraints(0, 0, 14, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(400, 400), new Dimension(400, 300), null, 1, false));
         final Spacer spacer1 = new Spacer();
         wellPanel.add(spacer1);
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayoutManager(22, 5, new Insets(0, 0, 0, 0), -1, -1));
-        mainPanel.add(buttonPanel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mainPanel.add(buttonPanel, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         buttonPanel.add(spacer2, new GridConstraints(0, 4, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final Spacer spacer3 = new Spacer();
@@ -218,6 +222,9 @@ public class MainGui extends JFrame {
         final JLabel label2 = new JLabel();
         label2.setText("Backtracking parameter");
         buttonPanel.add(label2, new GridConstraints(19, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        currentStatePanel = new JLabel();
+        currentStatePanel.setText("CURRENT PROGRAM STATE");
+        mainPanel.add(currentStatePanel, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
