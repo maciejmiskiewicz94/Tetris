@@ -57,11 +57,15 @@ public class MainGui extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        JScrollPane scrollPanel = new JScrollPane(wellPanel);
+        JScrollPane scrollPanel = new JScrollPane();
+        scrollPanel.setPreferredSize(new Dimension(500, 500));
         JPanel properWellPanel = new JPanel();
         scrollPanel.getViewport().add(properWellPanel);
         properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        //wellPanel.add(properWellPanel);
+
+        wellPanel.add(scrollPanel);
+
+
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Control program"));
         //Extra initializations with lower priority
         this.tileGui = new TilePickerGui();
@@ -93,6 +97,8 @@ public class MainGui extends JFrame {
                     wellpanel = manager.guiGenerator.generateWell(manager.getWellWidth());
                     properWellPanel.add(wellpanel);
                 }
+                wellPanel.revalidate();
+                wellPanel.repaint();
 
             }
         }));
