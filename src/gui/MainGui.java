@@ -57,15 +57,21 @@ public class MainGui extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        chooseTilesButton.setEnabled(false);
+        startButton.setEnabled(false);
+        pauseButton.setEnabled(false);
+        stopButton.setEnabled(false);
+        startNStepsButton.setEnabled(false);
+        startNStepsPicker.setEnabled(false);
+        serializationPicker.setEnabled(false);
+        backtrackingPicker.setEnabled(false);
+        saveCurrentStateButton.setEnabled(false);
+
         JScrollPane scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPanel.setMaximumSize(new Dimension(300, -1));
-      //  scrollPanel.setPreferredSize(new Dimension(300, -1));
-        // scrollPanel.setPreferredSize(new Dimension(500, 500));
         scrollPanel.setAutoscrolls(true);
         JPanel properWellPanel = new JPanel();
         scrollPanel.getViewport().add(properWellPanel);
-        //  properWellPanel.setBackground(Color.BLUE);
-        //  wellPanel.setBackground(Color.RED);
         properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         wellPanel.add(scrollPanel);
 
@@ -144,6 +150,17 @@ public class MainGui extends JFrame {
             manager = new TilesManager(userFile);
             tileGui.showTiles(manager.generateGuiForTiles());
             tileGui.setVisible(true);
+
+            chooseTilesButton.setEnabled(true);
+            startButton.setEnabled(true);
+            pauseButton.setEnabled(true);
+            stopButton.setEnabled(true);
+            startNStepsButton.setEnabled(true);
+            startNStepsPicker.setEnabled(true);
+            serializationPicker.setEnabled(true);
+            backtrackingPicker.setEnabled(true);
+            saveCurrentStateButton.setEnabled(true);
+
             return loaded;
         } else {
             System.out.println("NO FILE");
@@ -224,7 +241,7 @@ public class MainGui extends JFrame {
         buttonPanel.add(label2, new GridConstraints(19, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         currentStatePanel = new JLabel();
         currentStatePanel.setText("CURRENT PROGRAM STATE");
-        mainPanel.add(currentStatePanel, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mainPanel.add(currentStatePanel, new GridConstraints(13, 3, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

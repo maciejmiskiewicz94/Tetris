@@ -163,9 +163,9 @@
           </component>
         </children>
       </grid>
-      <component id="d907a" class="javax.swing.JLabel" binding="currentStatePanel">
+      <component id="6998b" class="javax.swing.JLabel" binding="currentStatePanel">
         <constraints>
-          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="13" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="CURRENT PROGRAM STATE"/>
