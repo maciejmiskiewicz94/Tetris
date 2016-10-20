@@ -23,6 +23,7 @@ public class MainGui extends JFrame {
     * Main gui components
     * */
     private JPanel mainPanel;
+    private JPanel properWellPanel;
     private JButton loadTilesButton;
     private JButton chooseTilesButton;
     private JButton startButton;
@@ -68,14 +69,16 @@ public class MainGui extends JFrame {
         saveCurrentStateButton.setEnabled(false);
 
         JScrollPane scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPanel.setMaximumSize(new Dimension(300, -1));
+//        scrollPanel.setMaximumSize(new Dimension(500, -1));
         scrollPanel.setAutoscrolls(true);
-        JPanel properWellPanel = new JPanel();
+        properWellPanel = new JPanel();
         scrollPanel.getViewport().add(properWellPanel);
         properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
-        scrollPanel.setMaximumSize(new Dimension(900, 900));
-        wellPanel.add(scrollPanel);
+//        properWellPanel.setBackground(Color.BLUE);
+//        scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
+//        scrollPanel.setMaximumSize(new Dimension(900, 900));
+        wellPanel.add(scrollPanel, BorderLayout.CENTER);
+//        wellPanel.setBackground(Color.RED);
 
 
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Control program"));
@@ -105,9 +108,10 @@ public class MainGui extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int backtracking_param = (int) backtrackingPicker.getValue();
                 for (int i = 0; i < backtracking_param; i++) {
-                    JPanel wellpanel = new JPanel();
-                    wellpanel = manager.guiGenerator.generateWell(manager.getWellWidth());
-                    properWellPanel.add(wellpanel);
+                    JPanel well = new JPanel();
+                    well = manager.guiGenerator.generateWell(manager.getWellWidth());
+//                    well.setBackground(Color.YELLOW);
+                    properWellPanel.add(well);
                 }
                 wellPanel.revalidate();
                 wellPanel.repaint();
@@ -117,22 +121,42 @@ public class MainGui extends JFrame {
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                Buttons disabling
                 startNStepsButton.setEnabled(false);
+                loadTilesButton.setEnabled(false);
+                chooseTilesButton.setEnabled(false);
+                loadProgramStateButton.setEnabled(false);
             }
         }));
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                Buttons disabling
                 startNStepsButton.setEnabled(true);
                 startButton.setEnabled(true);
                 pauseButton.setEnabled(true);
+                loadTilesButton.setEnabled(true);
+                chooseTilesButton.setEnabled(true);
+                loadProgramStateButton.setEnabled(true);
             }
         });
         startNStepsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                Buttons disabling
                 startButton.setEnabled(false);
                 pauseButton.setEnabled(false);
+                loadTilesButton.setEnabled(false);
+                chooseTilesButton.setEnabled(false);
+                loadProgramStateButton.setEnabled(false);
+            }
+        });
+        saveCurrentStateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
+                wellPanel.revalidate();
+                wellPanel.repaint();
             }
         });
 
@@ -193,11 +217,11 @@ public class MainGui extends JFrame {
         mainPanel.setMinimumSize(new Dimension(700, 500));
         mainPanel.setPreferredSize(new Dimension(700, 500));
         wellPanel = new JPanel();
-        wellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        wellPanel.setLayout(new BorderLayout(0, 0));
         wellPanel.setVisible(true);
         mainPanel.add(wellPanel, new GridConstraints(0, 0, 14, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(400, 400), new Dimension(400, 300), null, 1, false));
         final Spacer spacer1 = new Spacer();
-        wellPanel.add(spacer1);
+        wellPanel.add(spacer1, BorderLayout.CENTER);
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayoutManager(22, 5, new Insets(0, 0, 0, 0), -1, -1));
         mainPanel.add(buttonPanel, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

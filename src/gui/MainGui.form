@@ -12,7 +12,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="262ef" binding="wellPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      <grid id="262ef" binding="wellPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <grid row="0" column="0" row-span="14" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="1" use-parent-layout="false">
             <minimum-size width="400" height="400"/>
@@ -25,7 +25,7 @@
         <border type="none"/>
         <children>
           <vspacer id="72ba4">
-            <constraints/>
+            <constraints border-constraint="Center"/>
           </vspacer>
         </children>
       </grid>
