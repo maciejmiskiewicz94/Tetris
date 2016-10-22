@@ -69,7 +69,9 @@ public class MainGui extends JFrame {
         serializationPicker.setEnabled(false);
         backtrackingPicker.setEnabled(false);
         saveCurrentStateButton.setEnabled(false);
-
+        backtrackingPicker.setModel(new SpinnerNumberModel(0, 0, 20, 1));
+        startNStepsPicker.setModel(new SpinnerNumberModel(0, 0, 99, 1));
+        serializationPicker.setModel(new SpinnerNumberModel(0, 0, 99, 1));
         JScrollPane scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 //        scrollPanel.setMaximumSize(new Dimension(500, -1));
         scrollPanel.setAutoscrolls(true);
