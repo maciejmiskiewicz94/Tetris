@@ -19,7 +19,7 @@ public class TilesManager implements Manager {
     private Tile[] tiles;
     private int wellWidth;
     private int numberOfTiles;
-    public TilesGuiGenerator guiGenerator;
+    private TilesGuiGenerator guiGenerator;
 
     private int maxTileHeight;
     private int maxTileWidth;
@@ -69,7 +69,9 @@ public class TilesManager implements Manager {
         return panels;
     }
 
-    public int getWellWidth(){
-        return this.wellWidth;
+    @Override
+    public JPanel generateWell() {
+        JPanel result = guiGenerator.generateWell(wellWidth);
+        return result;
     }
 }

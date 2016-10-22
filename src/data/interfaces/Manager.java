@@ -11,4 +11,5 @@ import java.util.Stack;
 public interface Manager {
     public void readTiles(File f);
     public Stack<JPanel> generateGuiForTiles();
+    public JPanel generateWell();
 }

@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.sun.deploy.panel.JavaPanel;
 import data.TilesManager;
+import data.interfaces.Manager;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -48,7 +49,8 @@ public class MainGui extends JFrame {
     * Extra components
     * */
     private File userFile;
-    private TilesManager manager;
+    private Manager manager;
+    private int backtrackingParam;
 
     public MainGui() {
         super("Tetris simulator (main window)");
@@ -72,13 +74,13 @@ public class MainGui extends JFrame {
 //        scrollPanel.setMaximumSize(new Dimension(500, -1));
         scrollPanel.setAutoscrolls(true);
         properWellPanel = new JPanel();
-        scrollPanel.getViewport().add(properWellPanel);
-        properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+//        properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 //        properWellPanel.setBackground(Color.BLUE);
 //        scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
 //        scrollPanel.setMaximumSize(new Dimension(900, 900));
         wellPanel.add(scrollPanel, BorderLayout.CENTER);
 //        wellPanel.setBackground(Color.RED);
+        scrollPanel.getViewport().add(properWellPanel);
 
 
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Control program"));
@@ -106,26 +108,25 @@ public class MainGui extends JFrame {
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int backtracking_param = (int) backtrackingPicker.getValue();
-                for (int i = 0; i < backtracking_param; i++) {
+
+                startNStepsButton.setEnabled(false);
+                loadTilesButton.setEnabled(false);
+                chooseTilesButton.setEnabled(false);
+                loadProgramStateButton.setEnabled(false);
+                startButton.setEnabled(false);
+
+                properWellPanel.removeAll();
+
+                backtrackingParam = (int) backtrackingPicker.getValue();
+                for (int i = 0; i < backtrackingParam; i++) {
                     JPanel well = new JPanel();
-                    well = manager.guiGenerator.generateWell(manager.getWellWidth());
+                    well = manager.generateWell();
 //                    well.setBackground(Color.YELLOW);
                     properWellPanel.add(well);
                 }
                 wellPanel.revalidate();
                 wellPanel.repaint();
 
-            }
-        }));
-        startButton.addActionListener((new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                Buttons disabling
-                startNStepsButton.setEnabled(false);
-                loadTilesButton.setEnabled(false);
-                chooseTilesButton.setEnabled(false);
-                loadProgramStateButton.setEnabled(false);
             }
         }));
         stopButton.addActionListener(new ActionListener() {
