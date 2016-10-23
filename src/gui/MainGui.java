@@ -8,6 +8,7 @@ import data.TilesManager;
 import data.interfaces.Manager;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,15 +74,9 @@ public class MainGui extends JFrame {
         startNStepsPicker.setModel(new SpinnerNumberModel(0, 0, 99, 1));
         serializationPicker.setModel(new SpinnerNumberModel(0, 0, 99, 1));
         JScrollPane scrollPanel = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        scrollPanel.setMaximumSize(new Dimension(500, -1));
         scrollPanel.setAutoscrolls(true);
         properWellPanel = new JPanel();
-//        properWellPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-//        properWellPanel.setBackground(Color.BLUE);
-//        scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
-//        scrollPanel.setMaximumSize(new Dimension(900, 900));
         wellPanel.add(scrollPanel, BorderLayout.CENTER);
-//        wellPanel.setBackground(Color.RED);
         scrollPanel.getViewport().add(properWellPanel);
 
 
@@ -117,13 +112,17 @@ public class MainGui extends JFrame {
                 loadProgramStateButton.setEnabled(false);
                 startButton.setEnabled(false);
 
-                properWellPanel.removeAll();
-
                 backtrackingParam = (int) backtrackingPicker.getValue();
+
+                int param = backtrackingParam / 2;
+
+                properWellPanel.removeAll();
+                properWellPanel.setLayout(new GridLayout(2, param, 10, 10));
+                properWellPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
                 for (int i = 0; i < backtrackingParam; i++) {
                     JPanel well = new JPanel();
                     well = manager.generateWell();
-//                    well.setBackground(Color.YELLOW);
                     properWellPanel.add(well);
                 }
                 wellPanel.revalidate();

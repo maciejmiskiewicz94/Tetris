@@ -53,6 +53,7 @@ public class TilePickerGui extends JFrame {
 
     public void showTiles(Stack<JPanel> jPanels) {
 
+        tilesPanel.removeAll();
         while (!jPanels.empty()) tilesPanel.add(jPanels.pop());
     }
 }

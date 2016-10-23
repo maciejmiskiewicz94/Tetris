@@ -4,6 +4,7 @@ import data.Tile;
 import gui.interfaces.DynamicGuiGenerator;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -35,16 +36,23 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
 
         return result;
     }
-    public JPanel generateWell(int maxWidth)
+    public JPanel generateWell(int maxWidth, int m)
     {
-        int cellSize = 5;
-        int maxHeight = 2*maxWidth;
-        cellSize= (cellSize*10)/maxWidth;
-        if(cellSize<1) cellSize=1;
+
+        int wellWSize = maxWidth;
+        int wellHSize = wellWSize;
 
         JPanel result=new JPanel();
-        result.setLayout(new GridLayout(maxHeight,maxWidth,1,1));
-        fillFullGrid(maxHeight,maxWidth,result,cellSize);
+        result.setLayout(new BorderLayout());
+        result.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, Color.black));
+        BufferedImage b_img = new BufferedImage(wellWSize, wellHSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D    graphics = b_img.createGraphics();
+        graphics.setPaint( Color.WHITE );
+        graphics.fillRect ( 0, 0, b_img.getWidth(), b_img.getHeight() );
+
+        ImageIcon oicon = new ImageIcon(b_img);
+        JLabel lab = new JLabel(oicon);
+        result.add(lab,BorderLayout.CENTER);
         return result;
     }
     private void fillFullGrid(int maxHeight, int maxWidth, JPanel grid, int cellSize, boolean flag, Tile singleTile){

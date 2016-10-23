@@ -18,6 +18,7 @@ public class TilesManager implements Manager {
     private  ProcessingTile[] processingTiles;
     private Tile[] tiles;
     private int wellWidth;
+    private int wellMult;
     private int numberOfTiles;
     private TilesGuiGenerator guiGenerator;
 
@@ -27,6 +28,8 @@ public class TilesManager implements Manager {
     public TilesManager(File f){
         this.maxTileHeight=0;
         this.maxTileWidth=0;
+        this.wellWidth=0;
+        this.wellMult=0;
         readTiles(f);
         guiGenerator = new TilesGuiGenerator(1);
     }
@@ -71,7 +74,20 @@ public class TilesManager implements Manager {
 
     @Override
     public JPanel generateWell() {
-        JPanel result = guiGenerator.generateWell(wellWidth);
+        int wellWSize = 0;
+        if((wellWidth>0)&&(wellWidth<=50)){
+            wellWSize = wellWidth*10;
+            wellMult=10;
+        }
+        else if((wellWidth>50)&&(wellWidth<100)){
+            wellWSize = wellWidth*5;
+            wellMult=5;
+        }
+        else{
+            wellWSize = wellWidth;
+            wellMult=1;
+        }
+        JPanel result = guiGenerator.generateWell(wellWSize, wellMult);
         return result;
     }
 }
