@@ -9,6 +9,7 @@ import data.interfaces.Manager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.StrokeBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -102,31 +103,20 @@ public class MainGui extends JFrame {
                 setStatus("Tiles chooser is open");
             }
         });
+        startNStepsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startButton.setEnabled(false);
+                int n = (int) startNStepsPicker.getValue();
+                startGeneratingWellsAfterStart(n);
+            }
+        });
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 startNStepsButton.setEnabled(false);
-                loadTilesButton.setEnabled(false);
-                chooseTilesButton.setEnabled(false);
-                loadProgramStateButton.setEnabled(false);
-                startButton.setEnabled(false);
-
-                backtrackingParam = (int) backtrackingPicker.getValue();
-
-                int param = backtrackingParam / 2;
-
-                properWellPanel.removeAll();
-                properWellPanel.setLayout(new GridLayout(2, param, 10, 10));
-                properWellPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-                for (int i = 0; i < backtrackingParam; i++) {
-                    JPanel well = new JPanel();
-                    well = manager.generateWell();
-                    properWellPanel.add(well);
-                }
-                wellPanel.revalidate();
-                wellPanel.repaint();
+                startGeneratingWellsAfterStart(0);
 
             }
         }));
@@ -140,6 +130,7 @@ public class MainGui extends JFrame {
                 loadTilesButton.setEnabled(true);
                 chooseTilesButton.setEnabled(true);
                 loadProgramStateButton.setEnabled(true);
+                setStatus("Computation has stopped.");
             }
         });
         startNStepsButton.addActionListener(new ActionListener() {
@@ -162,6 +153,36 @@ public class MainGui extends JFrame {
             }
         });
 
+    }
+
+    private void startGeneratingWellsAfterStart(int n) {
+        loadTilesButton.setEnabled(false);
+        chooseTilesButton.setEnabled(false);
+        loadProgramStateButton.setEnabled(false);
+        startButton.setEnabled(false);
+        if (n > 0) {
+            String param = "" + n;
+            setStatus("The computations started and will stop after " + param + " steps.");
+
+        } else {
+            setStatus("The computations have started.");
+        }
+
+        backtrackingParam = (int) backtrackingPicker.getValue();
+
+        int param = backtrackingParam / 2;
+
+        properWellPanel.removeAll();
+        properWellPanel.setLayout(new GridLayout(2, param, 10, 10));
+        properWellPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        for (int i = 0; i < backtrackingParam; i++) {
+            JPanel well = new JPanel();
+            well = manager.generateWell();
+            properWellPanel.add(well);
+        }
+        wellPanel.revalidate();
+        wellPanel.repaint();
     }
 
     private boolean loadTilesFromFile() {
