@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 
 /**
  * Created by Borys on 10/16/16.
@@ -14,8 +15,10 @@ import java.awt.image.BufferedImage;
 public class TilesGuiGenerator implements DynamicGuiGenerator {
 
     private int id;
+    private boolean test;
 
     public TilesGuiGenerator(int id){
+        this.test=false;
         this.id=id;
     }
     @Override
@@ -50,6 +53,20 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         Graphics2D    graphics = b_img.createGraphics();
         graphics.setPaint( Color.WHITE );
         graphics.fillRect ( 0, 0, b_img.getWidth(), b_img.getHeight() );
+
+        if(!test){
+            test=true;
+            graphics.setPaint(Color.blue);
+            int sizeOfCell = 1;
+            sizeOfCell*=m;
+            graphics.fillRect ( 0, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
+            graphics.fillRect ( sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
+            graphics.fillRect ( 2*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
+            graphics.fillRect ( 3*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
+            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
+            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(2*sizeOfCell), sizeOfCell, sizeOfCell );
+            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(3*sizeOfCell), sizeOfCell, sizeOfCell );
+        }
 
         ImageIcon oicon = new ImageIcon(b_img);
         JLabel lab = new JLabel(oicon);
