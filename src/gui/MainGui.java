@@ -81,7 +81,7 @@ public class MainGui extends JFrame {
         scrollPanel.getViewport().add(properWellPanel);
 
 
-        buttonPanel.setBorder(BorderFactory.createTitledBorder("Control program"));
+        buttonPanel.setBorder(BorderFactory.createTitledBorder("Program control"));
         //Extra initializations with lower priority
         this.tileGui = new TilePickerGui();
 
@@ -130,7 +130,7 @@ public class MainGui extends JFrame {
                 loadTilesButton.setEnabled(true);
                 chooseTilesButton.setEnabled(true);
                 loadProgramStateButton.setEnabled(true);
-                setStatus("Computation has stopped.");
+                setStatus("Computation has stopped");
             }
         });
         startNStepsButton.addActionListener(new ActionListener() {

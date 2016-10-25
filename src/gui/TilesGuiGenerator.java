@@ -26,7 +26,8 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         tileGrid.setLayout(new GridLayout(maxHeight,maxWidth,1,1));
         JPanel controlButtons = new JPanel();
         controlButtons.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-        JTextField input = new JTextField("Enter number");
+        JSpinner input = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
+//        JTextField input = new JTextField("      1");
         controlButtons.add(input);
 
         fillFullGrid(maxHeight,maxWidth,tileGrid,15,true,singleTile);
