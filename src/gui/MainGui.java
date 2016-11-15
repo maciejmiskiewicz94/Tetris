@@ -7,6 +7,7 @@ import com.sun.deploy.panel.JavaPanel;
 import data.TilesManager;
 import data.Well;
 import data.interfaces.Manager;
+import processing.ProcessingUnit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -55,6 +56,8 @@ public class MainGui extends JFrame {
     private File userFile;
     private Manager manager;
     private int backtrackingParam;
+
+    private ArrayList<ProcessingUnit> processingUnits;
 
     public MainGui() {
         super("Tetris simulator (main window)");
@@ -119,6 +122,9 @@ public class MainGui extends JFrame {
 
                 startNStepsButton.setEnabled(false);
                 startGeneratingWellsAfterStart(0);
+                generateProcessingUnits(); //Start algorithm
+
+
 
             }
         }));
@@ -154,6 +160,11 @@ public class MainGui extends JFrame {
                 wellPanel.repaint();
             }
         });
+
+    }
+
+    private void generateProcessingUnits() {
+
 
     }
 
