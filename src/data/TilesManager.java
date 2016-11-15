@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -17,6 +18,9 @@ public class TilesManager implements Manager {
 
     private  ProcessingTile[] processingTiles;
     private Tile[] tiles;
+
+    private ArrayList<Well> wells; //List of all wells to use anywhere
+
     private int wellWidth;
     private int wellMult;
     private int numberOfTiles;
@@ -24,6 +28,8 @@ public class TilesManager implements Manager {
 
     private int maxTileHeight;
     private int maxTileWidth;
+
+    private int backtrackingParam;
 
     public TilesManager(File f){
         this.maxTileHeight=0;
@@ -73,7 +79,11 @@ public class TilesManager implements Manager {
     }
 
     @Override
-    public JPanel generateWell() {
+    public ArrayList<Well> generateWells(int backTrack) {
+
+        wells = new ArrayList<>();
+        this.backtrackingParam = backTrack;
+
         int wellWSize = 0;
         if((wellWidth>0)&&(wellWidth<=50)){
             wellWSize = wellWidth*10;
@@ -87,7 +97,12 @@ public class TilesManager implements Manager {
             wellWSize = wellWidth;
             wellMult=1;
         }
-        JPanel result = guiGenerator.generateWell(wellWSize, wellMult);
-        return result;
+        for(int i=0;i<backTrack;i++){
+            JPanel result = guiGenerator.generateWell(wellWSize, wellMult);
+            Well tmp = new Well(wellWidth,result,wellMult);
+            wells.add(tmp);
+        }
+
+        return wells;
     }
 }

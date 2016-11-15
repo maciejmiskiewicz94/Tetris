@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.sun.deploy.panel.JavaPanel;
 import data.TilesManager;
+import data.Well;
 import data.interfaces.Manager;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -176,9 +178,10 @@ public class MainGui extends JFrame {
         properWellPanel.setLayout(new GridLayout(2, param, 10, 10));
         properWellPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        for (int i = 0; i < backtrackingParam; i++) {
-            JPanel well = new JPanel();
-            well = manager.generateWell();
+        ArrayList<Well> w = manager.generateWells(backtrackingParam);
+
+        for (int i = 0; i < w.size(); i++) {
+            JPanel well = w.get(i).wellPanel;
             properWellPanel.add(well);
         }
         wellPanel.revalidate();

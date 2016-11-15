@@ -1,8 +1,11 @@
 package data.interfaces;
 
+import data.Well;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -11,5 +14,5 @@ import java.util.Stack;
 public interface Manager {
     public void readTiles(File f);
     public Stack<JPanel> generateGuiForTiles();
-    public JPanel generateWell();
+    public ArrayList<Well> generateWells(int backTrack);
 }
