@@ -16,8 +16,7 @@ import java.util.Stack;
  */
 public class TilesManager implements Manager {
 
-    private  ProcessingTile[] processingTiles;
-    private Tile[] tiles;
+    private ProcessingTile[] tiles;
 
     private ArrayList<Well> wells; //List of all wells to use anywhere
 
@@ -45,7 +44,7 @@ public class TilesManager implements Manager {
         try (Scanner sc = new Scanner(f)) {
             this.wellWidth = sc.nextInt();
             this.numberOfTiles = sc.nextInt();
-            this.tiles = new Tile[numberOfTiles];
+            this.tiles = new ProcessingTile[numberOfTiles];
             sc.nextLine();
             for(int i=0;i<numberOfTiles;i++){
                 int width = sc.nextInt();
@@ -61,7 +60,7 @@ public class TilesManager implements Manager {
                         tile[l][k] = sc.nextInt();
                     }
                 }
-                tiles[i] = new Tile(width,height,tile);
+                tiles[i] = new ProcessingTile(width,height,tile);
             }
             sc.close();
         } catch (FileNotFoundException e) {
