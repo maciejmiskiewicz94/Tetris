@@ -221,9 +221,21 @@ public class MainGui extends JFrame {
             return loaded;
         }
     }
-
-    //Methods to hadle EVERYTHING connected with Algorithm
-    //Start param is responsible for the start type, for now leave it as it is...)
+    /**
+     *
+     * @param startParam responsible for the start type
+     *
+     *Algorithm, my description
+     * 1) User provides input
+     * 2) First Thread(1) starts processing
+     * 3) It goes though all tiles, if it is possible to put tile on board it calculates for it and rotations quality function value
+     * 4) (1) Sorts results, choose k best
+     * 5) K best results are displayed to user
+     * 5.1) used tiles are deleted from each board separately
+     * 6) K new threads start taking k best results and boards
+     * 7) K thread do point 3, cooperate results, choose K best and reassign them
+     * 8) GO TO 5 and repeat until no tiles left
+     */
     private void start(int startParam) {
         manager.prepareForStart();
         generateProcessingUnits(); //Start algorithm
