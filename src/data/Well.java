@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Well {
 
     private int width;
-    private int[][] well;
+    public int[][] well;
     public JPanel wellPanel;
     public int wellMult;
 

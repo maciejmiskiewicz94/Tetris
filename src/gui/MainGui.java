@@ -1,5 +1,6 @@
 package gui;
 
+import Helpers.AlgoHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -44,6 +45,7 @@ public class MainGui extends JFrame {
     private JSpinner startNStepsPicker;
     private JSpinner backtrackingPicker;
     private JPanel wellPanel;
+    private AlgoHelper algorithmhelper;
 
     /*
     * Tiles gui window
@@ -66,6 +68,7 @@ public class MainGui extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        algorithmhelper = new AlgoHelper(1);
 
         chooseTilesButton.setEnabled(false);
         startButton.setEnabled(false);
@@ -194,6 +197,9 @@ public class MainGui extends JFrame {
         }
         wellPanel.revalidate();
         wellPanel.repaint();
+        for(int i=0;i<w.size();i++) {
+            algorithmhelper.calculateQuality(w.get(i));
+        }
     }
 
     private boolean loadTilesFromFile() {
