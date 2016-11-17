@@ -29,6 +29,7 @@ public class TilesManager implements Manager {
     private int maxTileWidth;
 
     private int backtrackingParam;
+    private ArrayList<JSpinner> spinners;
 
     public TilesManager(File f){
         this.maxTileHeight=0;
@@ -74,7 +75,17 @@ public class TilesManager implements Manager {
         for(int i=0;i<numberOfTiles;i++){
             panels.add(guiGenerator.generatePanel(tiles[i],maxTileHeight,maxTileWidth));
         }
+        spinners = guiGenerator.getSpinners();
         return panels;
+    }
+    public ArrayList<JSpinner> getSpinners(){
+        return spinners;
+    }
+
+    public void prepareForStart(){
+        for(int i=0;i<spinners.size();i++){
+            tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
+        }
     }
 
     @Override

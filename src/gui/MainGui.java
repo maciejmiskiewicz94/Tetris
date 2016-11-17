@@ -119,13 +119,9 @@ public class MainGui extends JFrame {
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 startNStepsButton.setEnabled(false);
                 startGeneratingWellsAfterStart(0);
-                generateProcessingUnits(); //Start algorithm
-
-
-
+                start(1);
             }
         }));
         stopButton.addActionListener(new ActionListener() {
@@ -150,6 +146,7 @@ public class MainGui extends JFrame {
                 loadTilesButton.setEnabled(false);
                 chooseTilesButton.setEnabled(false);
                 loadProgramStateButton.setEnabled(false);
+                start(2);
             }
         });
         saveCurrentStateButton.addActionListener(new ActionListener() {
@@ -230,6 +227,14 @@ public class MainGui extends JFrame {
             return loaded;
         }
     }
+
+    //Methods to hadle EVERYTHING connected with Algorithm
+    //Start param is responsible for the start type, for now leave it as it is...)
+    private void start(int startParam) {
+        manager.prepareForStart();
+        generateProcessingUnits(); //Start algorithm
+    }
+
 
     private void setStatus(String status) {
         currentStatePanel.setText(status);

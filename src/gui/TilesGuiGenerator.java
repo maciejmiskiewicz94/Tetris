@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
+import java.util.ArrayList;
 
 /**
  * Created by Borys on 10/16/16.
@@ -16,10 +17,12 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
 
     private int id;
 //    private boolean test;
+    private ArrayList<JSpinner> spinners;
 
     public TilesGuiGenerator(int id){
 //        this.test=false;
         this.id=id;
+        spinners = new ArrayList<>();
     }
     @Override
     public JPanel generatePanel(Tile singleTile, int maxHeight, int maxWidth) {
@@ -32,6 +35,7 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         JSpinner input = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
 //        JTextField input = new JTextField("      1");
         controlButtons.add(input);
+        spinners.add(input);
 
         fillFullGrid(maxHeight,maxWidth,tileGrid,15,true,singleTile);
 
@@ -95,6 +99,9 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
     }
     private void fillFullGrid(int maxHeight, int maxWidth, JPanel grid, int cellSize){
         fillFullGrid(maxHeight,maxWidth,grid,cellSize,false,new Tile(0,0,new int[4][4]));
+    }
+    public ArrayList<JSpinner> getSpinners(){
+        return this.spinners;
     }
 
 }

@@ -6,6 +6,7 @@ package data;
 public class ProcessingTile extends Tile {
 
     private Tile[] fourTypes;
+    private int numberOfSuchTiles;
 
     public ProcessingTile(int w, int h, int[][] tile) {
         super(w, h, tile);
@@ -14,6 +15,13 @@ public class ProcessingTile extends Tile {
         for(int i=0;i<3;i++) {
             fourTypes[i+1] = new Tile(w,h,generateTiles(fourTypes[i].getTile()));
         }
+        this.numberOfSuchTiles=1;
+    }
+    public void setNumerOfSuchTiles(int num){
+        this.numberOfSuchTiles = num;
+    }
+    public int getNumberOfSuchTiles(){
+        return this.numberOfSuchTiles;
     }
 
     private int [][] generateTiles(int[][] tile) {

@@ -5,6 +5,8 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Stack;
 
 import static javax.swing.BoxLayout.PAGE_AXIS;
@@ -49,6 +51,13 @@ public class TilePickerGui extends JFrame {
 
         rootPanel.add(paneScrollPane);
         rootPanel.add(buttonsPanel);
+
+        acceptTilesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     public void showTiles(Stack<JPanel> jPanels) {
