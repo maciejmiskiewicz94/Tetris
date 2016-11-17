@@ -4,22 +4,20 @@ import Helpers.AlgoHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.sun.deploy.panel.JavaPanel;
-import data.TilesManager;
+import controller.ThreadsManager;
+import controller.TilesManager;
 import data.Well;
-import data.interfaces.Manager;
+import controller.interfaces.Manager;
 import processing.ProcessingUnit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.StrokeBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by Maciej on 2016-10-15.
@@ -58,6 +56,7 @@ public class MainGui extends JFrame {
     private File userFile;
     private Manager manager;
     private int backtrackingParam;
+    private ThreadsManager thManager;
 
     private ArrayList<ProcessingUnit> processingUnits;
 
@@ -163,11 +162,6 @@ public class MainGui extends JFrame {
 
     }
 
-    private void generateProcessingUnits() {
-
-
-    }
-
     private void startGeneratingWellsAfterStart(int n) {
         loadTilesButton.setEnabled(false);
         chooseTilesButton.setEnabled(false);
@@ -233,15 +227,30 @@ public class MainGui extends JFrame {
             return loaded;
         }
     }
-
-    //Methods to hadle EVERYTHING connected with Algorithm
-    //Start param is responsible for the start type, for now leave it as it is...)
+    /**
+     *
+     * @param startParam responsible for the start type
+     *
+     *Algorithm, my description
+     * 1) User provides input
+     * 2) First Thread(1) starts processing
+     * 3) It goes though all tiles, if it is possible to put tile on board it calculates for it and rotations quality function value
+     * 4) (1) Sorts results, choose k best
+     * 5) K best results are displayed to user
+     * 5.1) used tiles are deleted from each board separately
+     * 6) K new threads start taking k best results and boards
+     * 7) K thread do point 3, cooperate results, choose K best and reassign them
+     * 8) GO TO 5 and repeat until no tiles left
+     */
     private void start(int startParam) {
         manager.prepareForStart();
         generateProcessingUnits(); //Start algorithm
     }
 
-
+    private void generateProcessingUnits() {
+        this.thManager = new ThreadsManager(backtrackingParam);
+        thManager.initializeThreads();
+    }
     private void setStatus(String status) {
         currentStatePanel.setText(status);
     }

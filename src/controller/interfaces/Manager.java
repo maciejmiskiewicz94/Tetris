@@ -1,9 +1,8 @@
-package data.interfaces;
+package controller.interfaces;
 
 import data.Well;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Stack;
