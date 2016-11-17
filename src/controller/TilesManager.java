@@ -1,10 +1,11 @@
-package data;
+package controller;
 
-import data.interfaces.Manager;
+import data.ProcessingTile;
+import data.Well;
+import controller.interfaces.Manager;
 import gui.TilesGuiGenerator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class TilesManager implements Manager {
     private int maxTileHeight;
     private int maxTileWidth;
 
-    private int backtrackingParam;
+    public int backtrackingParam;
     private ArrayList<JSpinner> spinners;
 
     public TilesManager(File f){

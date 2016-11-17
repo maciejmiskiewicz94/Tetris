@@ -3,22 +3,20 @@ package gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.sun.deploy.panel.JavaPanel;
-import data.TilesManager;
+import controller.ThreadsManager;
+import controller.TilesManager;
 import data.Well;
-import data.interfaces.Manager;
+import controller.interfaces.Manager;
 import processing.ProcessingUnit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.StrokeBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by Maciej on 2016-10-15.
@@ -56,6 +54,7 @@ public class MainGui extends JFrame {
     private File userFile;
     private Manager manager;
     private int backtrackingParam;
+    private ThreadsManager thManager;
 
     private ArrayList<ProcessingUnit> processingUnits;
 
@@ -160,11 +159,6 @@ public class MainGui extends JFrame {
 
     }
 
-    private void generateProcessingUnits() {
-
-
-    }
-
     private void startGeneratingWellsAfterStart(int n) {
         loadTilesButton.setEnabled(false);
         chooseTilesButton.setEnabled(false);
@@ -235,7 +229,10 @@ public class MainGui extends JFrame {
         generateProcessingUnits(); //Start algorithm
     }
 
-
+    private void generateProcessingUnits() {
+        this.thManager = new ThreadsManager(backtrackingParam);
+        thManager.initializeThreads();
+    }
     private void setStatus(String status) {
         currentStatePanel.setText(status);
     }
