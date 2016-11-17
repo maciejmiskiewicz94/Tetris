@@ -8,13 +8,12 @@ import data.Well;
 public class AlgoHelper {
     private int id;
     public AlgoHelper(int id){
-//        this.test=false;
         this.id=id;
     }
     public double calculateQuality(Well wellsource)
     {
         int[][]well=wellsource.well;
-       int quality=0;
+        int quality=0;
         int maxheight=0;
         int counter=0;
         int zeroscount=0;
@@ -34,8 +33,8 @@ public class AlgoHelper {
             if(i==wellsource.getWidth()-1) {
                 maxheight++;
             }
-            quality=(counter/(wellsource.getWidth()*maxheight))*100;
         }
+        quality=(counter/(wellsource.getWidth()*maxheight))*100;
         return quality;
     }
 
