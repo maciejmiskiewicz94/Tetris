@@ -10,31 +10,31 @@ public class AlgoHelper {
     public AlgoHelper(int id){
         this.id=id;
     }
-    public double calculateQuality(Well wellsource)
+    public double calculateQuality(Well wellSource)
     {
-        int[][]well=wellsource.well;
+        int[][]well=wellSource.well;
         int quality=0;
-        int maxheight=0;
+        int maxHeight=0;
         int counter=0;
-        int zeroscount=0;
-        for(int i=0;i<wellsource.getWidth();i++)
+        int zerosCount=0;
+        for(int i=0;i<wellSource.getWidth();i++)
         {
-            if(well[i][maxheight]==1)
+            if(well[i][maxHeight]==1)
             {
                 counter++;
             }
             else{
-                zeroscount++;
-                if(zeroscount==wellsource.getWidth())
+                zerosCount++;
+                if(zerosCount==wellSource.getWidth())
                 {
-                    maxheight--;
+                    maxHeight--;
                 }
             }
-            if(i==wellsource.getWidth()-1) {
-                maxheight++;
+            if(i==wellSource.getWidth()-1) {
+                maxHeight++;
             }
         }
-        quality=(counter/(wellsource.getWidth()*maxheight))*100;
+        quality=(counter/(wellSource.getWidth()*maxHeight))*100;
         return quality;
     }
 
