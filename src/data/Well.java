@@ -22,4 +22,5 @@ public class Well {
     public int getWidth() {
         return width;
     }
+
 }
