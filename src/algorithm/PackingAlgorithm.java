@@ -40,7 +40,8 @@ public class PackingAlgorithm {
                                 counter++;
                                 mainCounter++;
                                 result.well[i][j + a] = tileId;
-                            } else if (tile.getTile()[currentHeight][a] == 0) {
+                            }
+                            else if (tile.getTile()[currentHeight][a] == 0) {
                                 counter++;
                                 mainCounter++;
                             }

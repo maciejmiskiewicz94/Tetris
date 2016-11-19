@@ -1,5 +1,6 @@
 package processing;
 
+import Helpers.AlgoHelper;
 import algorithm.PackingAlgorithm;
 import data.ProcessingTile;
 import data.Well;
@@ -29,13 +30,17 @@ public class ProcessingUnit extends Thread{
        // printWell(well);
         PackingAlgorithm pack = new PackingAlgorithm();
         Well tmp = pack.runAlgorithm(well,tiles[0],1);
-        for(int i=1;i<tiles.length;i++)
-        {
-            tmp=pack.runAlgorithm(tmp,tiles[i],1);
-        }
+        tmp=pack.runAlgorithm(tmp,tiles[1],2);
+      //  for(int i=1;i<tiles.length;i++)
+      //  {
 
+      //  }
+        AlgoHelper algo=new AlgoHelper(1);
+        double quality = algo.calculateQuality(tmp);
         printWell(tmp);
-        //printTile(tiles[0]);
+        printTile(tiles[0]);
+        printTile(tiles[1]);
+        System.out.println(quality);
     }
 
     public void printWell(Well wellToPrint){
