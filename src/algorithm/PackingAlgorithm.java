@@ -48,6 +48,8 @@ public class PackingAlgorithm {
                                 currentHeight--;
                                 counter = 0;
                                 a = 0;
+                                i--;
+                                j--;
                             }
                         }
                     }
