@@ -75,7 +75,7 @@ public class PackingAlgorithm {
                                 counter = 0;
                                 a = 0;
                                 i--;
-                                isAZero=true;
+                                j--;
                             }
                         }
                     }
