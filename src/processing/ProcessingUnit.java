@@ -3,6 +3,7 @@ package processing;
 import algorithm.PackingAlgorithm;
 import data.ProcessingTile;
 import data.Well;
+import data.Tile;
 
 import java.util.ArrayList;
 
@@ -25,17 +26,25 @@ public class ProcessingUnit extends Thread{
     }
     public void run() {
         System.out.println("ExtendsThread : id : " + id);
-        printWell(well);
+       // printWell(well);
         PackingAlgorithm pack = new PackingAlgorithm();
         Well tmp = pack.runAlgorithm(well,tiles[0],1);
         printWell(tmp);
-
+        printTile(tiles[0]);
     }
 
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getWidth();i++){
             for(int j=0;j<wellToPrint.getWidth();j++){
                 System.out.print(wellToPrint.well[i][j]);
+            }
+            System.out.println();
+        }
+    }
+    public void printTile(Tile tileToPrint){
+        for(int i=0;i<tileToPrint.getHeight();i++){
+            for(int j=0;j<tileToPrint.getWidth();j++){
+                System.out.print(tileToPrint.getTile()[i][j]);
             }
             System.out.println();
         }

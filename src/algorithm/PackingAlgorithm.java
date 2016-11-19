@@ -28,7 +28,7 @@ public class PackingAlgorithm {
         {
             for(int j=0;j<well.getWidth();j++)
             {
-                if(well.well[i][j]==0&&tile.getTile()[currentHeight][tile.getWidth()]==1&&currentHeight<=tile.getHeight())
+                if(well.well[i][j]==0&&tile.getTile()[currentHeight][tile.getWidth()-1]==1&&currentHeight<=tile.getHeight())
                 {
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
