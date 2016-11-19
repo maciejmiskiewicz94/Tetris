@@ -90,6 +90,16 @@ public class TilesManager implements Manager {
     }
 
     @Override
+    public ProcessingTile[] getTiles() {
+        return tiles;
+    }
+
+    @Override
+    public ArrayList<Well> getWells() {
+        return wells;
+    }
+
+    @Override
     public ArrayList<Well> generateWells(int backTrack) {
 
         wells = new ArrayList<>();

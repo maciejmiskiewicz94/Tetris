@@ -1,5 +1,6 @@
 package controller.interfaces;
 
+import data.ProcessingTile;
 import data.Well;
 
 import javax.swing.*;
@@ -15,4 +16,6 @@ public interface Manager {
     public Stack<JPanel> generateGuiForTiles();
     public ArrayList<Well> generateWells(int backTrack);
     public void prepareForStart();
+    public ProcessingTile[] getTiles();
+    public ArrayList<Well> getWells();
 }

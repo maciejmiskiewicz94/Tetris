@@ -7,6 +7,12 @@ import data.Well;
  * Created by Maciej on 2016-11-18.
  */
 public class PackingAlgorithm {
+
+    public Well resultingWell=null;
+
+    public PackingAlgorithm(){
+    }
+
     public Well runAlgorithm(Well well, Tile tile, int tileId)
     {
         Well result=well;
@@ -51,8 +57,7 @@ public class PackingAlgorithm {
                 if(mainCounter==tile.getHeight()*tile.getWidth())
                 {
                     //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
-
-                    break;
+                    working=false;
                 }
             }
             if(!working) break;

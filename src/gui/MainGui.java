@@ -191,9 +191,9 @@ public class MainGui extends JFrame {
         }
         wellPanel.revalidate();
         wellPanel.repaint();
-        for (int i = 0; i < w.size(); i++) {
-            algorithmhelper.calculateQuality(w.get(i));
-        }
+//        for (int i = 0; i < w.size(); i++) {
+//            algorithmhelper.calculateQuality(w.get(i));
+//        }
     }
 
     private boolean loadTilesFromFile() {
@@ -248,7 +248,7 @@ public class MainGui extends JFrame {
     }
 
     private void generateProcessingUnits() {
-        this.thManager = new ThreadsManager(backtrackingParam);
+        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells());
         thManager.initializeThreads();
     }
 
