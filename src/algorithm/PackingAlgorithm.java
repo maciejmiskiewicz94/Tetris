@@ -3,6 +3,8 @@ package algorithm;
 import data.Tile;
 import data.Well;
 
+import java.util.ArrayList;
+
 /**
  * Created by Maciej on 2016-11-18.
  */
@@ -15,11 +17,13 @@ public class PackingAlgorithm {
 
     public Well runAlgorithm(Well well, Tile tile, int tileId)
     {
-        Well result=well;
+        Well result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
+        result.well = well.well;
         int[][] kernel;
         int currentHeight=tile.getHeight()-1;
         int counter=0;
         int mainCounter=0;
+        ArrayList<Integer> coords = new ArrayList<>();
         //TODO:
         //We need to assign a proper value for well height and make a getter function
         int wellHeight=well.getWidth();
@@ -28,38 +32,81 @@ public class PackingAlgorithm {
         {
             for(int j=0;j<well.getWidth();j++)
             {
-                if(currentHeight>=0&&well.well[i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<=tile.getHeight())
+                int initI = i;
+                if(currentHeight>=0&&well.well[i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<tile.getHeight())
                 {
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
-                    //Second goes through the board from starting point and try to recompute path of the first one.
-                    for(int a=0;a<tile.getWidth();a++)
+                    //Second goes through the board from starting point and try to recompute path of the first one.\
+//                    System.out.println("CURRENT HIGHT - "+currentHeight);
+                    boolean flag = false;
+                    int a = 0;
+                    initI=i;
+                    boolean isAZero = true;
+//                    System.out.println("COUNTER - "+counter);
+                    counter=0;
+                    mainCounter=0;
+                    coords = new ArrayList<>();
+                    for(;a<tile.getWidth();a++)
                     {
+                        if(isAZero){
+                            a=0;
+                            isAZero=false;
+                        }
+//                        System.out.println("A is - "+ a);
                         if(currentHeight>=0) {
                             if (well.well[i][j + a] == 0 && tile.getTile()[currentHeight][a] == 1) {
+                                flag=true;
                                 counter++;
                                 mainCounter++;
-                                result.well[i][j + a] = tileId;
+//                                result.well[i][j + a] = tileId;
+                                coords.add(i);
+                                coords.add(j+a);
+//                                System.out.println("Putting tile: "+i+" - "+j+" "+tileId);
+//                                System.out.println("Increasing 1 Mcounter for "+i+" - "+j);
+
                             } else if (tile.getTile()[currentHeight][a] == 0) {
                                 counter++;
                                 mainCounter++;
+//                                System.out.println("Increasing 2 Mcounter for "+i+" - "+j);
                             }
                             if (counter == tile.getWidth()) {
                                 currentHeight--;
                                 counter = 0;
                                 a = 0;
                                 i--;
-                                j--;
+                                isAZero=true;
                             }
                         }
                     }
+//                    System.out.println("MAIN COUNTER "+mainCounter);
+                    if(!flag){
+//                        System.out.println("Start from prev place");
+                        result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
+                        result.well = well.well;
+                        i = initI;
+                    }
+                    else if(mainCounter==(tile.getHeight()*tile.getWidth()))
+                    {
+                        //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
+                        working=false;
+
+                        for(int l=0;l<coords.size()-1;){
+                            result.well[coords.get(l)][coords.get(l+1)] = tileId;
+                            l+=2;
+                        }
+                        break;
+                    }
+                    else i = initI;
+                }else{
+                    System.out.println("I am here! and init I is - "+initI + " And J is - "+j);
+                    i=initI;
+                    result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
+                    result.well = well.well;
+                    currentHeight=tile.getHeight()-1;
+//                    break;
                 }
-                else result=well; //NOT sure
-                if(mainCounter==tile.getHeight()*tile.getWidth())
-                {
-                    //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
-                    working=false;
-                }
+
             }
             if(!working) break;
         }
