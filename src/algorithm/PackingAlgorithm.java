@@ -17,7 +17,7 @@ public class PackingAlgorithm {
     {
         Well result=well;
         int[][] kernel;
-        int currentHeight=0;
+        int currentHeight=tile.getHeight()-1;
         int counter=0;
         int mainCounter=0;
         //TODO:
@@ -28,29 +28,27 @@ public class PackingAlgorithm {
         {
             for(int j=0;j<well.getWidth();j++)
             {
-                if(well.well[i][j]==0&&tile.getTile()[currentHeight][tile.getWidth()-1]==1&&currentHeight<=tile.getHeight())
+                if(currentHeight>=0&&well.well[i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<=tile.getHeight())
                 {
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
                     //Second goes through the board from starting point and try to recompute path of the first one.
                     for(int a=0;a<tile.getWidth();a++)
                     {
-                        if(well.well[i][j+a]==0&&tile.getTile()[currentHeight][a]==1)
-                        {
-                            counter++;
-                            mainCounter++;
-                            result.well[i][j+a] = tileId;
-                        }
-                        else if(tile.getTile()[currentHeight][a]==0)
-                        {
-                            counter++;
-                            mainCounter++;
-                        }
-                        if(counter==tile.getWidth())
-                        {
-                            currentHeight++;
-                            counter=0;
-                            a=0;
+                        if(currentHeight>=0) {
+                            if (well.well[i][j + a] == 0 && tile.getTile()[currentHeight][a] == 1) {
+                                counter++;
+                                mainCounter++;
+                                result.well[i][j + a] = tileId;
+                            } else if (tile.getTile()[currentHeight][a] == 0) {
+                                counter++;
+                                mainCounter++;
+                            }
+                            if (counter == tile.getWidth()) {
+                                currentHeight--;
+                                counter = 0;
+                                a = 0;
+                            }
                         }
                     }
                 }
