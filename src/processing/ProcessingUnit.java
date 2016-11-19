@@ -26,9 +26,9 @@ public class ProcessingUnit extends Thread{
     public void run() {
         System.out.println("ExtendsThread : id : " + id);
         printWell(well);
-//        PackingAlgorithm pack = new PackingAlgorithm();
-//        Well tmp = pack.runAlgorithm(well,tiles[0],1);
-
+        PackingAlgorithm pack = new PackingAlgorithm();
+        Well tmp = pack.runAlgorithm(well,tiles[0],1);
+        printWell(tmp);
 
     }
 
