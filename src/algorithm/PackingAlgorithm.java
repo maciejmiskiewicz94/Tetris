@@ -35,6 +35,12 @@ public class PackingAlgorithm {
                 int initI = i;
                 if(currentHeight>=0&&well.well[i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<tile.getHeight())
                 {
+                    if(tile.getWidth()+j>well.getWidth()){
+                        System.out.println("Let's do it!");
+                        i--;
+                        j=0;
+                        break;
+                    }
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
                     //Second goes through the board from starting point and try to recompute path of the first one.\
@@ -75,7 +81,7 @@ public class PackingAlgorithm {
                                 counter = 0;
                                 a = 0;
                                 i--;
-                                j--;
+                                isAZero=true;
                             }
                         }
                     }
@@ -99,13 +105,14 @@ public class PackingAlgorithm {
                     }
                     else i = initI;
                 }else{
-                    System.out.println("I am here! and init I is - "+initI + " And J is - "+j);
+//                    System.out.println("I am here! and init I is - "+initI + " And J is - "+j);
                     i=initI;
                     result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
                     result.well = well.well;
                     currentHeight=tile.getHeight()-1;
 //                    break;
                 }
+
             }
             if(!working) break;
         }
