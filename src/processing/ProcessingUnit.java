@@ -30,7 +30,7 @@ public class ProcessingUnit extends Thread{
        // printWell(well);
         PackingAlgorithm pack = new PackingAlgorithm();
         Well tmp = null;
-        for(int i=1;i<=4;i++)
+        for(int i=1;i<= 5;i++)
         {
             tmp=pack.runAlgorithm(well,tiles[i-1],i);
             well=tmp;
@@ -44,9 +44,9 @@ public class ProcessingUnit extends Thread{
     }
 
     public void printWell(Well wellToPrint){
-        for(int i=0;i<wellToPrint.getWidth();i++){
+        for(int i=0;i<wellToPrint.getHeight();i++){
             for(int j=0;j<wellToPrint.getWidth();j++){
-                System.out.print(wellToPrint.well[i][j]);
+                System.out.print(wellToPrint.well[i][j]+"   ");
             }
             System.out.println();
         }

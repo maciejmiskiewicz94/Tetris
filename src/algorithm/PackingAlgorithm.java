@@ -17,8 +17,7 @@ public class PackingAlgorithm {
 
     public Well runAlgorithm(Well well, Tile tile, int tileId)
     {
-        Well result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
-        result.well = well.well;
+        Well result=well;
         int[][] kernel;
         int currentHeight=tile.getHeight()-1;
         int counter=0;
@@ -28,18 +27,23 @@ public class PackingAlgorithm {
         //We need to assign a proper value for well height and make a getter function
         int wellHeight=well.getWidth();
         boolean working = true;
-        for(int i=wellHeight-1;i>=0;i--)
+        for(int i=0;i<well.getHeight();i++)
         {
             for(int j=0;j<well.getWidth();j++)
             {
                 int initI = i;
-                if(currentHeight>=0&&well.well[i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<tile.getHeight())
+                if(currentHeight>=0&&well.well[well.getHeight()-1-i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<tile.getHeight())
                 {
                     if(tile.getWidth()+j>well.getWidth()){
-                        System.out.println("Let's do it!");
-                        i--;
+//                        System.out.println("Let's do it!");
+                        i++;
                         j=0;
                         break;
+                    }
+                    if((tile.getHeight()>=(well.getHeight()-1-i))){
+                        well = increaseWellSize(well);
+                        result=well;
+                        System.out.println("INCREASING SIZE");
                     }
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
@@ -61,12 +65,13 @@ public class PackingAlgorithm {
                         }
 //                        System.out.println("A is - "+ a);
                         if(currentHeight>=0) {
-                            if (well.well[i][j + a] == 0 && tile.getTile()[currentHeight][a] == 1) {
+//                            System.out.println("I - "+i+" : J - "+j);
+                            if (well.well[well.getHeight()-1-i][j + a] == 0 && tile.getTile()[currentHeight][a] == 1) {
                                 flag=true;
                                 counter++;
                                 mainCounter++;
-//                                result.well[i][j + a] = tileId;
-                                coords.add(i);
+//                                result.well[well.getHeight()-1-i][j + a] = tileId;
+                                coords.add(well.getHeight()-1-i);
                                 coords.add(j+a);
 //                                System.out.println("Putting tile: "+i+" - "+j+" "+tileId);
 //                                System.out.println("Increasing 1 Mcounter for "+i+" - "+j);
@@ -80,7 +85,7 @@ public class PackingAlgorithm {
                                 currentHeight--;
                                 counter = 0;
                                 a = 0;
-                                i--;
+                                i++;
                                 isAZero=true;
                             }
                         }
@@ -88,9 +93,9 @@ public class PackingAlgorithm {
 //                    System.out.println("MAIN COUNTER "+mainCounter);
                     if(!flag){
 //                        System.out.println("Start from prev place");
-                        result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
-                        result.well = well.well;
+                        result=well;
                         i = initI;
+                        currentHeight=tile.getHeight()-1;
                     }
                     else if(mainCounter==(tile.getHeight()*tile.getWidth()))
                     {
@@ -103,12 +108,14 @@ public class PackingAlgorithm {
                         }
                         break;
                     }
-                    else i = initI;
+                    else{
+                        i = initI;
+                        currentHeight=tile.getHeight()-1;
+                    }
                 }else{
 //                    System.out.println("I am here! and init I is - "+initI + " And J is - "+j);
                     i=initI;
-                    result=new Well(well.getWidth(),well.wellPanel,well.wellMult);
-                    result.well = well.well;
+                    result=well;
                     currentHeight=tile.getHeight()-1;
 //                    break;
                 }
@@ -117,5 +124,18 @@ public class PackingAlgorithm {
             if(!working) break;
         }
         return result;
+    }
+
+    private Well increaseWellSize(Well well) {
+        Well doubledHeightWell = new Well(well.getWidth(),well.wellPanel,well.wellMult);
+        int[][] nWell = new int[well.getHeight()*2][well.getWidth()];
+        for(int i=0;i<well.getHeight();i++){
+            for (int j=0;j<well.getWidth();j++){
+                nWell[i+well.getHeight()][j]=well.well[i][j];
+            }
+        }
+        doubledHeightWell.well=nWell;
+        doubledHeightWell.setHeight(well.getHeight()*2);
+        return doubledHeightWell;
     }
 }
