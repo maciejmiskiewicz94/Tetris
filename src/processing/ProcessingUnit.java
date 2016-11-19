@@ -29,8 +29,13 @@ public class ProcessingUnit extends Thread{
        // printWell(well);
         PackingAlgorithm pack = new PackingAlgorithm();
         Well tmp = pack.runAlgorithm(well,tiles[0],1);
+        for(int i=1;i<tiles.length;i++)
+        {
+            tmp=pack.runAlgorithm(tmp,tiles[i],1);
+        }
+
         printWell(tmp);
-        printTile(tiles[0]);
+        //printTile(tiles[0]);
     }
 
     public void printWell(Well wellToPrint){
