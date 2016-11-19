@@ -1,5 +1,6 @@
 package processing;
 
+import Helpers.AlgoHelper;
 import algorithm.PackingAlgorithm;
 import data.ProcessingTile;
 import data.Well;
@@ -35,6 +36,9 @@ public class ProcessingUnit extends Thread{
             well=tmp;
         }
 
+      //  }
+        AlgoHelper algo=new AlgoHelper(1);
+        double quality = algo.calculateQuality(tmp);
         printWell(tmp);
         //printTile(tiles[0]);
     }
