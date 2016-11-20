@@ -1,5 +1,6 @@
 package Helpers;
 
+import data.Tile;
 import data.Well;
 
 /**
@@ -45,4 +46,24 @@ public class AlgoHelper {
         return -1;
     }
 
+    public void seeTheTiles(Tile[] fourTypes) {
+        for(int i=0;i<fourTypes.length;i++)
+        {
+            Tile currentTile=fourTypes[i];
+            System.out.println("///");
+            System.out.println("///");
+            printTile(currentTile);
+            System.out.println("///");
+            System.out.println("///");
+        }
+    }
+
+    public void printTile(Tile tileToPrint){
+        for(int i=0;i<tileToPrint.getHeight();i++){
+            for(int j=0;j<tileToPrint.getWidth();j++){
+                System.out.print(tileToPrint.getTile()[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
