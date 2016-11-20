@@ -14,6 +14,8 @@ public class Well {
     private int height;
     private double quality;
 
+    public int lastAddedTile;
+
     public Well(int w, JPanel panel, int mult) {
         this.width = w;
         this.wellPanel=panel;

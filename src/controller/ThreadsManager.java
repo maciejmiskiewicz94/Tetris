@@ -12,8 +12,9 @@ import java.util.ArrayList;
  */
 public class ThreadsManager {
 
-    private Manager manager;
+    public static Well next;
 
+    private Manager manager;
     private ArrayList<ProcessingUnit> threads;
     ProcessingTile[] tiles;
     ArrayList<Well> wells;
