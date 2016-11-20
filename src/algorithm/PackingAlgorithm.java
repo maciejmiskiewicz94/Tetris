@@ -119,7 +119,6 @@ public class PackingAlgorithm {
                     currentHeight=tile.getHeight()-1;
 //                    break;
                 }
-
             }
             if(!working) break;
         }
