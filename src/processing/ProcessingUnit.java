@@ -38,11 +38,11 @@ public class ProcessingUnit extends Thread{
             for (int i = 0; i < tiles.length; i++) {
                 if (tiles[i].getNumberOfSuchTiles() > 0) {
                     ArrayList<Well> localList = new ArrayList<>();
-//                for(int j=0;j<4;j++){
-//                    printTile(tiles[i].fourTypes[j]);
-//                    System.out.println();
-//                }
-                    for (int j = 0; j < 1; j++) {
+                for(int j=0;j<4;j++){
+                    printTile(tiles[i].fourTypes[j]);
+                    System.out.println();
+                }
+                    for (int j = 0; j < 4; j++) {
                         Well tmp = new Well(well);
                         tmp = pack.runAlgorithm(tmp, tiles[i].fourTypes[j], i + 1);
                         tmp.setQuality(algo.calculateQuality(tmp));
