@@ -248,7 +248,7 @@ public class MainGui extends JFrame {
     }
 
     private void generateProcessingUnits() {
-        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells());
+        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells(), 0);
         thManager.initializeThreads();
     }
 
