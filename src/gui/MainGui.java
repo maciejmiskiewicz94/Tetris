@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Maciej on 2016-10-15.
@@ -243,11 +244,15 @@ public class MainGui extends JFrame {
      *                   8) GO TO 5 and repeat until no tiles left
      */
     private void start(int startParam) {
-        generateProcessingUnits(manager.prepareForStart()); //Start algorithm
+        try {
+            generateProcessingUnits(manager.prepareForStart()); //Start algorithm
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void generateProcessingUnits(int totalNumberOfTiles) {
-        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells(), totalNumberOfTiles);
+    private void generateProcessingUnits(int totalNumberOfTiles) throws InterruptedException {
+        this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles);
         thManager.initializeThreads();
     }
 

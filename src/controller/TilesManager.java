@@ -1,6 +1,7 @@
 package controller;
 
 import data.ProcessingTile;
+import data.Tile;
 import data.Well;
 import controller.interfaces.Manager;
 import gui.TilesGuiGenerator;
@@ -62,7 +63,7 @@ public class TilesManager implements Manager {
                         tile[l][k] = sc.nextInt();
                     }
                 }
-                tiles[i] = new ProcessingTile(width,height,tile);
+                tiles[i] = new ProcessingTile(width,height,tile,i+1);
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -100,6 +101,15 @@ public class TilesManager implements Manager {
     @Override
     public ArrayList<Well> getWells() {
         return wells;
+    }
+
+    @Override
+    public ArrayList<ProcessingTile> getTilesAsArrayList() {
+        ArrayList<ProcessingTile> t = new ArrayList<>();
+        for(int i=0;i<tiles.length;i++){
+            t.add(tiles[i]);
+        }
+        return t;
     }
 
     @Override

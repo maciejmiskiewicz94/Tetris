@@ -1,5 +1,6 @@
 package processing;
 
+import controller.ThreadsManager;
 import helpers.AlgoHelper;
 import algorithm.PackingAlgorithm;
 import data.ProcessingTile;
@@ -8,25 +9,63 @@ import data.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Borys on 11/15/16.
  */
 public class ProcessingUnit extends Thread{
     private int id;
+    private int backTrack;
 
     private Well well;
-    private ProcessingTile[] tiles;
+    private ArrayList<ProcessingTile> tiles;
+    private Lock lock;
 
     private ArrayList<Well> afterPutingTiles;
 
-    public ProcessingUnit(int id, Well wellToWorkOn, ProcessingTile[] tilesToWorkOn){
+    public ProcessingUnit(int id, Well wellToWorkOn, ArrayList<ProcessingTile> tilesToWorkOn, int backTrack, Lock lock){
         this.id=id;
         this.well=wellToWorkOn;
         this.tiles=tilesToWorkOn;
         afterPutingTiles = new ArrayList<>();
+        this.backTrack=backTrack;
+        this.lock=lock;
     }
-    public void run() {
+    public void run(){
+        System.out.println("ExtendsThread : id : " + id);
+        PackingAlgorithm pack = new PackingAlgorithm();
+        AlgoHelper algo=new AlgoHelper(1);
+
+
+        for (int i = 0; i < tiles.size(); i++){
+            ArrayList<Well> localList = new ArrayList<>();
+            for (int j = 0; j < 4; j++) {
+                Well tmp = new Well(well);
+                tmp = pack.runAlgorithm(tmp, tiles.get(i).fourTypes[j], tiles.get(i).getId());
+                tmp.setQuality(algo.calculateQuality(tmp));
+                tmp.lastAddedTile = i;
+                localList.add(tmp); //Adding all wells with placed tiles to the list
+//                    System.out.println("TILE - "+i+", SUBTILE - "+j);
+//                    printWell(tmp);
+            }
+            localList.sort(ThreadsManager.cm);
+            afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
+        }
+        afterPutingTiles.sort(ThreadsManager.cm);
+        try {
+            lock.lock();
+            for(int i=0;i<backTrack;i++){
+                ThreadsManager.results.add(afterPutingTiles.get(i));
+            }
+            System.out.println("BEST "+backTrack+" WELLS WERE ADDED BY THREAD "+id);
+        }finally {
+            lock.unlock();
+        }
+    }
+    /*public void run() {
         int counter = tiles.length;
         System.out.println("ExtendsThread : id : " + id);
        // printWell(well);
@@ -46,7 +85,7 @@ public class ProcessingUnit extends Thread{
                         tmp = pack.runAlgorithm(tmp, tiles[i].fourTypes[j], i + 1);
                         tmp.setQuality(algo.calculateQuality(tmp));
                         tmp.lastAddedTile = i;
-                        localList.add(tmp);
+                        localList.add(tmp); //Adding all wells with placed tiles to the list
 //                    System.out.println("TILE - "+i+", SUBTILE - "+j);
 //                    printWell(tmp);
                     }
@@ -55,8 +94,9 @@ public class ProcessingUnit extends Thread{
                         else if (o1.getQuality() > o2.getQuality()) return -1;
                         else return 0;
                     }));
-                    afterPutingTiles.add(localList.get(0));
+                    afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
                 }
+
             Collections.sort(afterPutingTiles, (o1, o2) -> {
                 if (o1.getQuality() < o2.getQuality()) return 1;
                 else if(o1.getQuality() > o2.getQuality()) return -1;
@@ -101,5 +141,5 @@ public class ProcessingUnit extends Thread{
             }
             System.out.println();
         }
-    }
+    }*/
 }

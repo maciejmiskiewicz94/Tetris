@@ -18,4 +18,6 @@ public interface Manager {
     public int prepareForStart();
     public ProcessingTile[] getTiles();
     public ArrayList<Well> getWells();
+
+    ArrayList<ProcessingTile> getTilesAsArrayList();
 }

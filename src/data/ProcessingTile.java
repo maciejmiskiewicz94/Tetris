@@ -9,8 +9,9 @@ public class ProcessingTile extends Tile {
 
     public Tile[] fourTypes;
     private int numberOfSuchTiles;
+    private int tileId;
 
-    public ProcessingTile(int w, int h, int[][] tile) {
+    public ProcessingTile(int w, int h, int[][] tile, int id) {
         super(w, h, tile);
         fourTypes = new Tile[4];
         fourTypes[0]=new Tile(w,h,tile);
@@ -23,8 +24,9 @@ public class ProcessingTile extends Tile {
         fourTypes[3] = new Tile(arr3[1].length,arr3.length,arr3);
 
         AlgoHelper helper=new AlgoHelper(2);
-        helper.seeTheTiles(fourTypes);
+//        helper.seeTheTiles(fourTypes);
         this.numberOfSuchTiles=1;
+        this.tileId = id;
     }
     public void setNumerOfSuchTiles(int num){
         this.numberOfSuchTiles = num;
@@ -43,5 +45,9 @@ public class ProcessingTile extends Tile {
             }
         }
         return ret;
+    }
+
+    public int getId() {
+        return this.tileId;
     }
 }
