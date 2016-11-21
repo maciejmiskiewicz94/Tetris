@@ -32,7 +32,7 @@ public class PackingAlgorithm {
             for(int j=0;j<well.getWidth();j++)
             {
                 int initI = i;
-                if(currentHeight>=0&&well.well[well.getHeight()-1-i][j]==0&&tile.getTile()[currentHeight][0]==1&&currentHeight<tile.getHeight())
+                if(currentHeight>=0&&well.well[well.getHeight()-1-i][j]==0&&currentHeight<tile.getHeight())
                 {
                     if(tile.getWidth()+j>well.getWidth()){
 //                        System.out.println("Let's do it!");
@@ -101,7 +101,7 @@ public class PackingAlgorithm {
                     {
                         //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
                         working=false;
-
+                        System.out.println("PUTTING A TILE");
                         for(int l=0;l<coords.size()-1;){
                             result.well[coords.get(l)][coords.get(l+1)] = tileId;
                             l+=2;

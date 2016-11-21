@@ -1,6 +1,6 @@
 package data;
 
-import Helpers.AlgoHelper;
+import helpers.AlgoHelper;
 
 /**
  * Created by Borys on 10/16/16.

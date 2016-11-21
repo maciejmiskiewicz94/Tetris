@@ -1,4 +1,4 @@
-package Helpers;
+package helpers;
 
 import data.Tile;
 import data.Well;

@@ -1,15 +1,13 @@
 package processing;
 
-import Helpers.AlgoHelper;
+import helpers.AlgoHelper;
 import algorithm.PackingAlgorithm;
-import controller.ThreadsManager;
 import data.ProcessingTile;
 import data.Well;
 import data.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by Borys on 11/15/16.
@@ -35,13 +33,14 @@ public class ProcessingUnit extends Thread{
         PackingAlgorithm pack = new PackingAlgorithm();
         AlgoHelper algo=new AlgoHelper(1);
         while(counter>0) {
+            afterPutingTiles = new ArrayList<>();
             for (int i = 0; i < tiles.length; i++) {
                 if (tiles[i].getNumberOfSuchTiles() > 0) {
                     ArrayList<Well> localList = new ArrayList<>();
-                for(int j=0;j<4;j++){
-                    printTile(tiles[i].fourTypes[j]);
-                    System.out.println();
-                }
+//                for(int j=0;j<4;j++){
+//                    printTile(tiles[i].fourTypes[j]);
+//                    System.out.println();
+//                }
                     for (int j = 0; j < 4; j++) {
                         Well tmp = new Well(well);
                         tmp = pack.runAlgorithm(tmp, tiles[i].fourTypes[j], i + 1);
@@ -52,7 +51,7 @@ public class ProcessingUnit extends Thread{
 //                    printWell(tmp);
                     }
                     Collections.sort(localList, (o1, o2) -> {
-                        if (o1.getQuality() >= o2.getQuality()) return 1;
+                        if (o1.getQuality() <= o2.getQuality()) return 1;
                         else return -1;
                     });
                     afterPutingTiles.add(localList.get(0));
@@ -64,7 +63,7 @@ public class ProcessingUnit extends Thread{
             });
 
             System.out.println("QUALITY - " + afterPutingTiles.get(0).getQuality());
-            printWell(afterPutingTiles.get(0));
+//            printWell(afterPutingTiles.get(0));
 
             well = afterPutingTiles.get(0);
             int n = tiles[afterPutingTiles.get(0).lastAddedTile].getNumberOfSuchTiles();
@@ -73,6 +72,7 @@ public class ProcessingUnit extends Thread{
                 counter--;
             }
         }
+        printWell(afterPutingTiles.get(0));
 //        ThreadsManager.next = afterPutingTiles.get(0);
 //        for(int i=1;i<= 10;i++)
 //        {
