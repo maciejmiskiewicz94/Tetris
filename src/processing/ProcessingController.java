@@ -14,33 +14,54 @@ import java.util.concurrent.locks.Lock;
 public class ProcessingController extends Thread {
     private int id;
     private int backTrack;
+    private int total;
 
-    private ArrayList<ProcessingTile> tiles;
     private ArrayList<ProcessingUnit> threads = new ArrayList<>();
     private ArrayList<Well> best;
     private Lock lock;
 
-    public ProcessingController(int id, ArrayList<ProcessingTile> tilesToWorkOn, int backTrack, Lock lock){
+    public ProcessingController(int id, ArrayList<ProcessingTile> tilesToWorkOn, int backTrack, Lock lock, int total, boolean fromFile){
         this.id=id;
-        this.tiles=tilesToWorkOn;
         this.backTrack=backTrack;
         this.lock=lock;
         this.best = new ArrayList<>();
-        best.add(ThreadsManager.results.get(0));
+        this.total=total;
+        readAndSetUpBest(tilesToWorkOn, fromFile);
     }
-    public void run(){
-        while (tiles.size()>0){
-            int iter = 0;
-            if(ThreadsManager.results.size()>1){
-                iter=backTrack;
+
+    private void readAndSetUpBest(ArrayList<ProcessingTile> tilesToWorkOn, boolean fromFile) {
+        int n=0;
+        if(fromFile) n = backTrack;
+        else n = 1;
+        try {
+            lock.lock();
+            for(int i=0;i<n;i++){
+                best.add(ThreadsManager.results.get(i));
+                ArrayList<ProcessingTile> tiles = new ArrayList<>();
+                for(int j =0;j<tilesToWorkOn.size();j++){
+                    tiles.add(tilesToWorkOn.get(j));
+                }
+                best.get(i).setTiles(tiles);
             }
-            else iter=1;
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    public void run(){
+        int iter = 0;
+        if(ThreadsManager.results.size()>1){
+            iter=backTrack;
+        }
+        else iter=1;
+        while (total>0){
             try {
                 lock.lock();
                 ThreadsManager.results.removeAll(ThreadsManager.results);
                 threads.removeAll(threads);
                 for(int i = 0;i<iter;i++){
-                    ProcessingUnit pu = new ProcessingUnit(i, best.get(i),tiles,backTrack,lock);
+                    ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
                 }
@@ -57,18 +78,24 @@ public class ProcessingController extends Thread {
             }
             ThreadsManager.results.sort(ThreadsManager.cm);
             best=new ArrayList<>();
+            if(ThreadsManager.results.size()>1){
+                if(total >=backTrack) iter = backTrack;
+                else iter = total;
+            }
+            else iter=1;
             for(int i=0;i<iter;i++){
                 best.add(ThreadsManager.results.get(i));
                 int lastAdded = ThreadsManager.results.get(i).lastAddedTile;
-                int n = tiles.get(lastAdded).getNumberOfSuchTiles();
+                int n = ThreadsManager.results.get(i).getTiles().get(lastAdded).getNumberOfSuchTiles();
                 n--;
                 if(n>0){
-                    tiles.get(lastAdded).setNumerOfSuchTiles(n);
+                    ThreadsManager.results.get(i).getTiles().get(lastAdded).setNumerOfSuchTiles(n);
                 }
                 else{
-                    tiles.remove(lastAdded);
+                    ThreadsManager.results.get(i).getTiles().remove(lastAdded);
                 }
             }
+            total--;
         }
         printWell(best.get(0));
     }

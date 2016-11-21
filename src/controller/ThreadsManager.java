@@ -40,11 +40,12 @@ public class ThreadsManager {
         this.wells=wells;
         this.totalNumberOfTiles=numberOfTiles;
         this.lock=new ReentrantLock();
+        ThreadsManager.results = new ArrayList<>();
     }
 
-    public void initializeThreads() throws InterruptedException {
+    public void initializeThreads(boolean fromFile) throws InterruptedException {
         ThreadsManager.results.add(wells.get(0));
-        ProcessingController controller = new ProcessingController(1,tiles,numberOfThreads,lock);
+        ProcessingController controller = new ProcessingController(1,tiles,numberOfThreads,lock, totalNumberOfTiles,fromFile);
         controller.start();
         controller.join();
         System.out.println("Controller finished processing!");

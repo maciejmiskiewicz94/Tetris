@@ -1,6 +1,7 @@
 package data;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * Created by Maciej on 2016-10-19.
@@ -14,6 +15,8 @@ public class Well {
     private int height;
     private double quality;
 
+    private ArrayList<ProcessingTile> tiles;
+
     public int lastAddedTile;
 
     public Well(int w, JPanel panel, int mult) {
@@ -23,6 +26,7 @@ public class Well {
         this.wellMult=mult;
         this.height=w;
         this.quality = -1;
+        this.tiles=new ArrayList<>();
     }
     public Well(Well w){
         this.width = w.getWidth();
@@ -36,6 +40,11 @@ public class Well {
         }
         this.wellPanel = w.getWellPanel();
         this.wellMult=w.getWellMult();
+        ArrayList<ProcessingTile> t = new ArrayList<>();
+        for(int j =0;j<w.getTiles().size();j++){
+            t.add(w.getTiles().get(j));
+        }
+        this.tiles=t;
     }
 
     public int getWidth() {
@@ -66,5 +75,12 @@ public class Well {
 
     public int getWellMult() {
         return wellMult;
+    }
+
+    public ArrayList<ProcessingTile> getTiles(){
+        return this.tiles;
+    }
+    public void setTiles(ArrayList<ProcessingTile> t){
+        this.tiles=new ArrayList<>(t);
     }
 }

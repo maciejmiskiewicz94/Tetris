@@ -26,10 +26,10 @@ public class ProcessingUnit extends Thread{
 
     private ArrayList<Well> afterPutingTiles;
 
-    public ProcessingUnit(int id, Well wellToWorkOn, ArrayList<ProcessingTile> tilesToWorkOn, int backTrack, Lock lock){
+    public ProcessingUnit(int id, Well wellToWorkOn, int backTrack, Lock lock){
         this.id=id;
         this.well=wellToWorkOn;
-        this.tiles=tilesToWorkOn;
+        this.tiles=wellToWorkOn.getTiles();
         afterPutingTiles = new ArrayList<>();
         this.backTrack=backTrack;
         this.lock=lock;
@@ -57,7 +57,10 @@ public class ProcessingUnit extends Thread{
         afterPutingTiles.sort(ThreadsManager.cm);
         try {
             lock.lock();
-            for(int i=0;i<backTrack;i++){
+            int num = 0;
+            if(afterPutingTiles.get(0).getTiles().size()>=backTrack) num = backTrack;
+            else num = afterPutingTiles.get(0).getTiles().size();
+            for(int i=0;i<num;i++){
                 ThreadsManager.results.add(afterPutingTiles.get(i));
             }
             System.out.println("BEST "+backTrack+" WELLS WERE ADDED BY THREAD "+id);

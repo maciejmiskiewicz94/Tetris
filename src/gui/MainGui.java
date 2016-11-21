@@ -253,7 +253,7 @@ public class MainGui extends JFrame {
 
     private void generateProcessingUnits(int totalNumberOfTiles) throws InterruptedException {
         this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles);
-        thManager.initializeThreads();
+        thManager.initializeThreads(false);
     }
 
     private void setStatus(String status) {
