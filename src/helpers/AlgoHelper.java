@@ -40,6 +40,7 @@ public class AlgoHelper {
                     double qty =(double) (int)counter/(int)area;
                     Well well1=well;
                     int mini = advancedFunction(well1);
+                    //int mini=1;
 
                     return (double) (int)qty/(int)mini;
                 }
@@ -76,17 +77,20 @@ public class AlgoHelper {
     private int advancedFunction(Well mainWell) {
 
         int minimum=0;
+        Well tmp=mainWell;
+        minimum=0;
         for(int i=mainWell.getHeight()-1;i>=0;i--) {
             for (int j = 0; j < mainWell.getWidth(); j++) {
                 if(mainWell.well[i][j]==0)
                 {
                     minimum--;
-                    floodFill(mainWell,i,j,minimum);
+                   // floodFill(mainWell,i,j,minimum);
                 }
             }
             }
-
+            minimum=(int) ((int)minimum/(int)mainWell.getWidth());
           //  printWell(mainWell);
+        mainWell=tmp;
         return Math.abs(minimum);
 
 
@@ -96,6 +100,7 @@ public class AlgoHelper {
     public static void floodFill(Well b, int x, int y, int z)
     {
         Stack<Point> checkPoint = new Stack<Point>(); //to avoid recursion
+        Well a=b;
         checkPoint.push(new Point(x, y));
         while (checkPoint.size() > 0)
         {
@@ -118,7 +123,7 @@ public class AlgoHelper {
                 }
             }
         }
-
+        b=a;
     }
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){
