@@ -43,7 +43,7 @@ public class PackingAlgorithm {
                     if((tile.getHeight()>=(well.getHeight()-1-i))){
                         well = increaseWellSize(well);
                         result=well;
-                        System.out.println("INCREASING SIZE");
+//                        System.out.println("INCREASING SIZE");
                     }
                     //Alternative could be 2 DFS to search
                     //First goes through the tile, only available cells and remmebers path
@@ -101,7 +101,7 @@ public class PackingAlgorithm {
                     {
                         //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
                         working=false;
-                        System.out.println("PUTTING A TILE");
+//                        System.out.println("PUTTING A TILE");
                         for(int l=0;l<coords.size()-1;){
                             result.well[coords.get(l)][coords.get(l+1)] = tileId;
                             l+=2;
