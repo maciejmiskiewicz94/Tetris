@@ -41,8 +41,8 @@ public class AlgoHelper {
                     Well well1=well;
                     int mini = advancedFunction(well1);
                     //int mini=1;
-
-                    return (double) (int)qty/(int)mini;
+                    //double output=(double) qty/mini;
+                    return qty;
                 }
             }
             zerosCount=0;
