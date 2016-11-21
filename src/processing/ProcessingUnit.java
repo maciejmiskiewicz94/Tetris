@@ -34,7 +34,7 @@ public class ProcessingUnit extends Thread{
         AlgoHelper algo=new AlgoHelper(1);
         while(counter>0) {
             afterPutingTiles = new ArrayList<>();
-            for (int i = 0; i < tiles.length; i++) {
+            for (int i = 0; i < tiles.length; i++)
                 if (tiles[i].getNumberOfSuchTiles() > 0) {
                     ArrayList<Well> localList = new ArrayList<>();
 //                for(int j=0;j<4;j++){
@@ -50,16 +50,17 @@ public class ProcessingUnit extends Thread{
 //                    System.out.println("TILE - "+i+", SUBTILE - "+j);
 //                    printWell(tmp);
                     }
-                    Collections.sort(localList, (o1, o2) -> {
-                        if (o1.getQuality() <= o2.getQuality()) return 1;
-                        else return -1;
-                    });
+                    Collections.sort(localList, ((o1, o2) -> {
+                        if (o1.getQuality() < o2.getQuality()) return 1;
+                        else if (o1.getQuality() > o2.getQuality()) return -1;
+                        else return 0;
+                    }));
                     afterPutingTiles.add(localList.get(0));
                 }
-            }
             Collections.sort(afterPutingTiles, (o1, o2) -> {
-                if (o1.getQuality() <= o2.getQuality()) return 1;
-                else return -1;
+                if (o1.getQuality() < o2.getQuality()) return 1;
+                else if(o1.getQuality() > o2.getQuality()) return -1;
+                else return 0;
             });
 
             System.out.println("QUALITY - " + afterPutingTiles.get(0).getQuality());

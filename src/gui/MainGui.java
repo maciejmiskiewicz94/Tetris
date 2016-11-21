@@ -243,12 +243,11 @@ public class MainGui extends JFrame {
      *                   8) GO TO 5 and repeat until no tiles left
      */
     private void start(int startParam) {
-        manager.prepareForStart();
-        generateProcessingUnits(); //Start algorithm
+        generateProcessingUnits(manager.prepareForStart()); //Start algorithm
     }
 
-    private void generateProcessingUnits() {
-        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells(), 0);
+    private void generateProcessingUnits(int totalNumberOfTiles) {
+        this.thManager = new ThreadsManager(backtrackingParam, manager.getTiles(), manager.getWells(), totalNumberOfTiles);
         thManager.initializeThreads();
     }
 

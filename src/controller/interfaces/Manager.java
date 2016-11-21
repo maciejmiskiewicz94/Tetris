@@ -15,7 +15,7 @@ public interface Manager {
     public void readTiles(File f);
     public Stack<JPanel> generateGuiForTiles();
     public ArrayList<Well> generateWells(int backTrack);
-    public void prepareForStart();
+    public int prepareForStart();
     public ProcessingTile[] getTiles();
     public ArrayList<Well> getWells();
 }

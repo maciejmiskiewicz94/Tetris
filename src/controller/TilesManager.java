@@ -83,10 +83,13 @@ public class TilesManager implements Manager {
         return spinners;
     }
 
-    public void prepareForStart(){
+    public int prepareForStart(){
+        int totalNumberOfTiles=0;
         for(int i=0;i<spinners.size();i++){
             tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
+            totalNumberOfTiles+=tiles[i].getNumberOfSuchTiles();
         }
+        return totalNumberOfTiles;
     }
 
     @Override
