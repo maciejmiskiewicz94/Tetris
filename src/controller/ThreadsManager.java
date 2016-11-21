@@ -19,12 +19,14 @@ public class ThreadsManager {
     ProcessingTile[] tiles;
     ArrayList<Well> wells;
     private int numberOfThreads;
+    private int totalNumberOfTiles;
 
-    public ThreadsManager(int n, ProcessingTile[] tiles, ArrayList<Well> wells){
+    public ThreadsManager(int n, ProcessingTile[] tiles, ArrayList<Well> wells,int numberOfTiles){
         this.numberOfThreads = n;
         this.threads = new ArrayList<>();
         this.tiles=tiles;
         this.wells=wells;
+        this.totalNumberOfTiles=numberOfTiles;
     }
 
     public void initializeThreads(){
