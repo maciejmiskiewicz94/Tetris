@@ -103,15 +103,23 @@ public class Serialization {
                 for(int j=0;j<numTiles;j++)
                 {
                    //TODO readind tiles
-
+                    int[][]a=null;
+                    ProcessingTile tile=new ProcessingTile(sc.nextInt(),sc.nextInt(),a,j);
+                    for(int l=0;l<tile.getHeight();l++){
+                        for(int k=0;k<tile.getWidth();k++){
+                            tile.getTile()[l][k] = sc.nextInt();
+                        }
+                    }
+                    tiles1.get(i).add(j,tile);
 
                 }
             }
+            sc.close();
 
         }
-        catch(FileNotFoundException ex)
+        catch(FileNotFoundException e)
         {
-
+            e.printStackTrace();
         }
     }
 
