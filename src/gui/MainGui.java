@@ -111,14 +111,6 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
                 setStatus("Tiles chooser is open");
             }
         });
-        startNStepsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startButton.setEnabled(false);
-                int n = (int) startNStepsPicker.getValue();
-                startGeneratingWellsAfterStart(n);
-            }
-        });
         startButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,6 +135,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
                 loadTilesButton.setEnabled(false);
                 chooseTilesButton.setEnabled(false);
                 loadProgramStateButton.setEnabled(false);
+                startGeneratingWellsAfterStart(0);
                 start(2);
             }
         });
@@ -165,6 +158,8 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         chooseTilesButton.setEnabled(true);
         loadProgramStateButton.setEnabled(true);
         setStatus("Computation has stopped");
+
+        ThreadsManager.bounded = -1;
     }
 
     private void startGeneratingWellsAfterStart(int n) {
@@ -249,13 +244,15 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
      */
     private void start(int startParam) {
         try {
-            generateProcessingUnits(manager.prepareForStart()); //Start algorithm
+            generateProcessingUnits(manager.prepareForStart(), startParam); //Start algorithm
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void generateProcessingUnits(int totalNumberOfTiles) throws InterruptedException {
+    private void generateProcessingUnits(int totalNumberOfTiles, int startParam) throws InterruptedException {
+        int numberOfSteps = (Integer) startNStepsPicker.getValue();
+        if (startParam == 2) ThreadsManager.bounded = numberOfSteps;
         this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles, MainGui.this);
         thManager.initializeThreads(false);
     }
@@ -274,6 +271,8 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         for (int i = 0; i < wells.size(); i++) {
             manager.displayWell(wells.get(i));
         }
+        properWellPanel.revalidate();
+        properWellPanel.repaint();
         wellPanel.revalidate();
         wellPanel.repaint();
     }

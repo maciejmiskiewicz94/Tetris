@@ -42,7 +42,7 @@ public class Well {
         this.wellMult=w.getWellMult();
         ArrayList<ProcessingTile> t = new ArrayList<>();
         for(int j =0;j<w.getTiles().size();j++){
-            t.add(w.getTiles().get(j));
+            t.add(new ProcessingTile(w.getTiles().get(j)));
         }
         this.tiles=t;
     }

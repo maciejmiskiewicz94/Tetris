@@ -24,6 +24,7 @@ public class ThreadsManager {
         else if (o1.getQuality() > o2.getQuality()) return -1;
         else return 0;
     };
+    public static int bounded = -1;
 
     MainGui guiRef;
 
@@ -49,7 +50,14 @@ public class ThreadsManager {
 
     public void initializeThreads(boolean fromFile) throws InterruptedException {
         ThreadsManager.results.add(wells.get(0));
-        ProcessingController controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, totalNumberOfTiles,fromFile, guiRef);
+        ProcessingController controller;
+
+        if((ThreadsManager.bounded==-1)||ThreadsManager.bounded>totalNumberOfTiles){
+            controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, totalNumberOfTiles,fromFile, guiRef);
+        }
+        else{
+            controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, ThreadsManager.bounded,fromFile, guiRef);
+        }
         controller.start();
 //        controller.join();
 //        System.out.println("Controller finished processing!");

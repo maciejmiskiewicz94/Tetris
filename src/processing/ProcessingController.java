@@ -52,7 +52,7 @@ public class ProcessingController extends Thread {
                 best.add(ThreadsManager.results.get(i));
                 ArrayList<ProcessingTile> tiles = new ArrayList<>();
                 for(int j =0;j<tilesToWorkOn.size();j++){
-                    tiles.add(tilesToWorkOn.get(j));
+                    tiles.add(new ProcessingTile(tilesToWorkOn.get(j)));
                 }
                 best.get(i).setTiles(tiles);
             }
@@ -78,7 +78,7 @@ public class ProcessingController extends Thread {
                     ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
-                    System.out.println("SIZE, TH "+i+" - "+best.get(i).getTiles().size());
+//                    System.out.println("SIZE, TH "+i+" - "+best.get(i).getTiles().size());
                 }
             }
             finally {
@@ -94,7 +94,7 @@ public class ProcessingController extends Thread {
             ThreadsManager.results.sort(ThreadsManager.cm);
             best=new ArrayList<>();
             if(ThreadsManager.results.size()>1){
-                if(total >=backTrack) iter = backTrack;
+                if(ThreadsManager.results.size() >=backTrack) iter = backTrack;
                 else iter = total;
             }
             else iter=1;
@@ -112,7 +112,25 @@ public class ProcessingController extends Thread {
                 }
             }
             total--;
+//            System.out.println("BEST TILES:");
+//            for(int l=0;l<best.size();l++){
+//                printWell(best.get(l));
+//                int count =0 ;
+//                for(int k=0;k<best.get(l).getTiles().size();k++){
+//                    int n = best.get(l).getTiles().get(k).getNumberOfSuchTiles();
+//                    count+=n;
+//                }
+//                System.out.println("NUMBER OF TILES - "+ count);
+//                System.out.println();
+//            }
+//            System.out.println(":-------------:");
             guiRef.displayOneStepOfComputation(best);
+
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
         printWell(best.get(0));
         guiRef.computationEnded();

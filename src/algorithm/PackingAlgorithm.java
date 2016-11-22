@@ -57,12 +57,12 @@ public class PackingAlgorithm {
                     counter=0;
                     mainCounter=0;
                     coords = new ArrayList<>();
-                    for(;a<tile.getWidth();a++)
+                    for(;a<tile.getWidth();)
                     {
-                        if(isAZero){
-                            a=0;
-                            isAZero=false;
-                        }
+//                        if(isAZero){
+//                            a=0;
+//                            isAZero=false;
+//                        }
 //                        System.out.println("A is - "+ a);
                         if(currentHeight>=0) {
 //                            System.out.println("I - "+i+" : J - "+j);
@@ -86,9 +86,10 @@ public class PackingAlgorithm {
                                 counter = 0;
                                 a = 0;
                                 i++;
-                                isAZero=true;
                             }
+                            else a++;
                         }
+                        else break;
                     }
 //                    System.out.println("MAIN COUNTER "+mainCounter);
                     if(!flag){

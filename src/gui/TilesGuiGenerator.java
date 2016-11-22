@@ -94,15 +94,17 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         graphics.fillRect ( 0, 0, b_img.getWidth(), b_img.getHeight() );
 
         //Filling image with a tile
-        graphics.setPaint(Color.blue);
+        graphics.setPaint(Color.BLACK);
         int sizeOfCell = 1;
         sizeOfCell*=toDisplay.getWellMult();
 
         int x = 0, y = 0;
 
         for(int i = 0;i < toDisplay.getHeight(); i++){
+            x=0;
             for(int j = 0;j < toDisplay.getWidth(); j++){
                 if(toDisplay.well[i][j]!=0){
+//                    System.out.println("FILLING PIXEL ("+x+","+y+")");
                     graphics.fillRect(x,y,sizeOfCell,sizeOfCell);
                 }
                 x+=sizeOfCell;
