@@ -95,7 +95,10 @@ public class ProcessingController extends Thread {
             best=new ArrayList<>();
             if(ThreadsManager.results.size()>1){
                 if(ThreadsManager.results.size() >=backTrack) iter = backTrack;
-                else iter = total;
+                else{
+                    iter = total;
+                    if(ThreadsManager.results.size()<iter) iter = ThreadsManager.results.size();
+                }
             }
             else iter=1;
             for(int i=0;i<iter;i++){

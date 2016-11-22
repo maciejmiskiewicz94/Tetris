@@ -41,18 +41,20 @@ public class ProcessingUnit extends Thread{
 
 
         for (int i = 0; i < tiles.size(); i++){
-            ArrayList<Well> localList = new ArrayList<>();
-            for (int j = 0; j < 4; j++) {
-                Well tmp = new Well(well);
-                tmp = pack.runAlgorithm(tmp, tiles.get(i).fourTypes[j], tiles.get(i).getId());
-                tmp.setQuality(algo.calculateQuality(tmp));
-                tmp.lastAddedTile = i;
-                localList.add(tmp); //Adding all wells with placed tiles to the list
+            if(tiles.get(i).getNumberOfSuchTiles()>0){
+                ArrayList<Well> localList = new ArrayList<>();
+                for (int j = 0; j < 4; j++) {
+                    Well tmp = new Well(well);
+                    tmp = pack.runAlgorithm(tmp, tiles.get(i).fourTypes[j], tiles.get(i).getId());
+                    tmp.setQuality(algo.calculateQuality(tmp));
+                    tmp.lastAddedTile = i;
+                    localList.add(tmp); //Adding all wells with placed tiles to the list
 //                    System.out.println("TILE - "+i+", SUBTILE - "+j);
 //                    printWell(tmp);
+                }
+                localList.sort(ThreadsManager.cm);
+                afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
             }
-            localList.sort(ThreadsManager.cm);
-            afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
         }
         afterPutingTiles.sort(ThreadsManager.cm);
         try {
