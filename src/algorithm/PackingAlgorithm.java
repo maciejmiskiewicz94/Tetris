@@ -36,7 +36,6 @@ public class PackingAlgorithm {
                 {
                     if(tile.getWidth()+j>well.getWidth()){
 //                        System.out.println("Let's do it!");
-                        i++;
                         j=0;
                         break;
                     }
