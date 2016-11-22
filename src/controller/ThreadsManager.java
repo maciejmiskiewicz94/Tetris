@@ -51,8 +51,8 @@ public class ThreadsManager {
         ThreadsManager.results.add(wells.get(0));
         ProcessingController controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, totalNumberOfTiles,fromFile, guiRef);
         controller.start();
-        controller.join();
-        System.out.println("Controller finished processing!");
+//        controller.join();
+//        System.out.println("Controller finished processing!");
 //        boolean result = true;
 //        for(int i=0;i<numberOfThreads;i++){
 //            ProcessingUnit pu = new ProcessingUnit(i, wells.get(0),tiles,numberOfThreads,lock);
