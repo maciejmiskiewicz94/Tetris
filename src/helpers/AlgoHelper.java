@@ -20,7 +20,7 @@ public class AlgoHelper {
         int counter=0;
         int zerosCount=0;
         //TODO we need to make getHeight for wells
-        int wellHeight=well.getWidth();
+        int wellHeight=well.getHeight();
         int maxHeight=0;
 
 
@@ -36,10 +36,10 @@ public class AlgoHelper {
                 }
                 if(zerosCount==well.getWidth())
                 {
-                    int area=well.getWidth()*(wellHeight-i);
+                    int area=well.getWidth()*(wellHeight-i-1);
                     double qty =(double) (int)counter/(int)area;
-                    Well well1=well;
-                    int mini = advancedFunction(well1);
+                   // Well well1=well;
+                    //int mini = advancedFunction(well1);
                     //int mini=1;
                     //double output=(double) qty/mini;
                     return qty;
