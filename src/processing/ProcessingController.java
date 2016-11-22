@@ -4,6 +4,7 @@ import controller.ThreadsManager;
 import data.ProcessingTile;
 import data.Well;
 import gui.MainGui;
+import jdk.nashorn.internal.ir.ThrowNode;
 import main.Main;
 
 import javax.swing.*;
@@ -135,6 +136,10 @@ public class ProcessingController extends Thread {
 //                e.printStackTrace();
 //            }
 
+            System.out.println(ThreadsManager.stopped);
+            if(ThreadsManager.stopped){
+                break;
+            }
         }
         printWell(best.get(0));
         guiRef.computationEnded();

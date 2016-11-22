@@ -160,6 +160,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         setStatus("Computation has stopped");
 
         ThreadsManager.bounded = -1;
+        ThreadsManager.stopped = true;
     }
 
     private void startGeneratingWellsAfterStart(int n) {
@@ -243,6 +244,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
      *                   8) GO TO 5 and repeat until no tiles left
      */
     private void start(int startParam) {
+        ThreadsManager.stopped = false;
         try {
             generateProcessingUnits(manager.prepareForStart(), startParam); //Start algorithm
         } catch (InterruptedException e) {
