@@ -5,6 +5,7 @@ import data.ProcessingTile;
 import data.Tile;
 import data.Well;
 import gui.MainGui;
+import jdk.nashorn.internal.ir.ThrowNode;
 import main.Main;
 
 import javax.swing.*;
@@ -148,6 +149,10 @@ public class ProcessingController extends Thread {
                 guiRef.serializationStart(ThreadsManager.results,tiless);
             }
 
+            System.out.println(ThreadsManager.stopped);
+            if(ThreadsManager.stopped){
+                break;
+            }
         }
         printWell(best.get(0));
         guiRef.computationEnded();

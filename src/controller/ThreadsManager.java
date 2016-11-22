@@ -26,6 +26,9 @@ public class ThreadsManager {
     };
     public static int bounded = -1;
     public  static boolean serializeOnDemand = false;
+
+    public static boolean stopped = false;
+
     MainGui guiRef;
 
     private Manager manager;
