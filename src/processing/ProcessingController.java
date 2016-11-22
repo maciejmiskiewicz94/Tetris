@@ -3,7 +3,10 @@ package processing;
 import controller.ThreadsManager;
 import data.ProcessingTile;
 import data.Well;
+import gui.MainGui;
+import main.Main;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -12,21 +15,31 @@ import java.util.concurrent.locks.Lock;
  * Created by Borys on 11/21/16.
  */
 public class ProcessingController extends Thread {
+
+    MainGui guiRef;
+
     private int id;
     private int backTrack;
     private int total;
 
     private ArrayList<ProcessingUnit> threads = new ArrayList<>();
     private ArrayList<Well> best;
+    private ArrayList<JPanel> panels;
+
     private Lock lock;
 
-    public ProcessingController(int id, ArrayList<ProcessingTile> tilesToWorkOn, int backTrack, Lock lock, int total, boolean fromFile){
+    public ProcessingController(int id, ArrayList<ProcessingTile> tilesToWorkOn, ArrayList<Well> wells, int backTrack, Lock lock, int total, boolean fromFile, MainGui gui){
         this.id=id;
         this.backTrack=backTrack;
         this.lock=lock;
+        this.guiRef=gui;
         this.best = new ArrayList<>();
         this.total=total;
         readAndSetUpBest(tilesToWorkOn, fromFile);
+        panels = new ArrayList<>();
+        for(int j=0;j<wells.size();j++){
+            panels.add(wells.get(j).getWellPanel());
+        }
     }
 
     private void readAndSetUpBest(ArrayList<ProcessingTile> tilesToWorkOn, boolean fromFile) {
@@ -61,9 +74,11 @@ public class ProcessingController extends Thread {
                 ThreadsManager.results.removeAll(ThreadsManager.results);
                 threads.removeAll(threads);
                 for(int i = 0;i<iter;i++){
+                    System.out.println(best.get(i).getTiles().size());
                     ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
+                    System.out.println("SIZE, TH "+i+" - "+best.get(i).getTiles().size());
                 }
             }
             finally {
@@ -85,6 +100,7 @@ public class ProcessingController extends Thread {
             else iter=1;
             for(int i=0;i<iter;i++){
                 best.add(ThreadsManager.results.get(i));
+                best.get(i).setWellPanel(panels.get(i));
                 int lastAdded = ThreadsManager.results.get(i).lastAddedTile;
                 int n = ThreadsManager.results.get(i).getTiles().get(lastAdded).getNumberOfSuchTiles();
                 n--;
@@ -96,8 +112,10 @@ public class ProcessingController extends Thread {
                 }
             }
             total--;
+            guiRef.displayOneStepOfComputation(best);
         }
         printWell(best.get(0));
+        guiRef.computationEnded();
     }
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){

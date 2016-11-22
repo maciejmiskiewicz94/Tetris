@@ -19,5 +19,7 @@ public interface Manager {
     public ProcessingTile[] getTiles();
     public ArrayList<Well> getWells();
 
+    public void displayWell(Well toDisplay);
+
     ArrayList<ProcessingTile> getTilesAsArrayList();
 }

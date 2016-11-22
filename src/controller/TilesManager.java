@@ -104,6 +104,11 @@ public class TilesManager implements Manager {
     }
 
     @Override
+    public void displayWell(Well toDisplay) {
+        guiGenerator.fullFillWell(toDisplay);
+    }
+
+    @Override
     public ArrayList<ProcessingTile> getTilesAsArrayList() {
         ArrayList<ProcessingTile> t = new ArrayList<>();
         for(int i=0;i<tiles.length;i++){

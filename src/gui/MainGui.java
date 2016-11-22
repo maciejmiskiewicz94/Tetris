@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  * Created by Maciej on 2016-10-15.
  */
-public class MainGui extends JFrame {
+public class MainGui extends JFrame implements ThreadsManager.Communicator {
 
     /*
     * Main gui components
@@ -131,13 +131,7 @@ public class MainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                Buttons disabling
-                startNStepsButton.setEnabled(true);
-                startButton.setEnabled(true);
-                pauseButton.setEnabled(true);
-                loadTilesButton.setEnabled(true);
-                chooseTilesButton.setEnabled(true);
-                loadProgramStateButton.setEnabled(true);
-                setStatus("Computation has stopped");
+                stopComputation();
             }
         });
         startNStepsButton.addActionListener(new ActionListener() {
@@ -161,6 +155,16 @@ public class MainGui extends JFrame {
             }
         });
 
+    }
+
+    private void stopComputation() {
+        startNStepsButton.setEnabled(true);
+        startButton.setEnabled(true);
+        pauseButton.setEnabled(true);
+        loadTilesButton.setEnabled(true);
+        chooseTilesButton.setEnabled(true);
+        loadProgramStateButton.setEnabled(true);
+        setStatus("Computation has stopped");
     }
 
     private void startGeneratingWellsAfterStart(int n) {
@@ -252,7 +256,7 @@ public class MainGui extends JFrame {
     }
 
     private void generateProcessingUnits(int totalNumberOfTiles) throws InterruptedException {
-        this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles);
+        this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles, MainGui.this);
         thManager.initializeThreads(false);
     }
 
@@ -263,6 +267,20 @@ public class MainGui extends JFrame {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+
+    @Override
+    public void displayOneStepOfComputation(ArrayList<Well> wells) {
+        for (int i = 0; i < wells.size(); i++) {
+            manager.displayWell(wells.get(i));
+        }
+        wellPanel.revalidate();
+        wellPanel.repaint();
+    }
+
+    @Override
+    public void computationEnded() {
+        stopComputation();
     }
 
     /**

@@ -3,6 +3,7 @@ package controller;
 import controller.interfaces.Manager;
 import data.ProcessingTile;
 import data.Well;
+import gui.MainGui;
 import processing.ProcessingController;
 import processing.ProcessingUnit;
 
@@ -24,6 +25,8 @@ public class ThreadsManager {
         else return 0;
     };
 
+    MainGui guiRef;
+
     private Manager manager;
     private ArrayList<ProcessingUnit> threads = new ArrayList<>();
     ArrayList<ProcessingTile> tiles;
@@ -33,7 +36,7 @@ public class ThreadsManager {
 
     private Lock lock;
 
-    public ThreadsManager(int n, ArrayList<ProcessingTile> tiles, ArrayList<Well> wells, int numberOfTiles){
+    public ThreadsManager(int n, ArrayList<ProcessingTile> tiles, ArrayList<Well> wells, int numberOfTiles, MainGui gui){
         this.numberOfThreads = n;
         this.threads = new ArrayList<>();
         this.tiles=tiles;
@@ -41,11 +44,12 @@ public class ThreadsManager {
         this.totalNumberOfTiles=numberOfTiles;
         this.lock=new ReentrantLock();
         ThreadsManager.results = new ArrayList<>();
+        guiRef=gui;
     }
 
     public void initializeThreads(boolean fromFile) throws InterruptedException {
         ThreadsManager.results.add(wells.get(0));
-        ProcessingController controller = new ProcessingController(1,tiles,numberOfThreads,lock, totalNumberOfTiles,fromFile);
+        ProcessingController controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, totalNumberOfTiles,fromFile, guiRef);
         controller.start();
         controller.join();
         System.out.println("Controller finished processing!");
@@ -55,5 +59,9 @@ public class ThreadsManager {
 //            threads.add(pu);
 //            pu.start();
 //        }
+    }
+    public interface Communicator{
+        public void displayOneStepOfComputation(ArrayList<Well> wells);
+        public void computationEnded();
     }
 }

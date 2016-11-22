@@ -83,4 +83,8 @@ public class Well {
     public void setTiles(ArrayList<ProcessingTile> t){
         this.tiles=new ArrayList<>(t);
     }
+
+    public void setWellPanel(JPanel pan){
+        this.wellPanel=pan;
+    }
 }

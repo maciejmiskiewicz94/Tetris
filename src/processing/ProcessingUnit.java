@@ -63,7 +63,7 @@ public class ProcessingUnit extends Thread{
             for(int i=0;i<num;i++){
                 ThreadsManager.results.add(afterPutingTiles.get(i));
             }
-            System.out.println("BEST "+backTrack+" WELLS WERE ADDED BY THREAD "+id);
+//            System.out.println("BEST "+backTrack+" WELLS WERE ADDED BY THREAD "+id);
         }finally {
             lock.unlock();
         }

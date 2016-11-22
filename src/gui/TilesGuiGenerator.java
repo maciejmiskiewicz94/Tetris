@@ -1,6 +1,7 @@
 package gui;
 
 import data.Tile;
+import data.Well;
 import gui.interfaces.DynamicGuiGenerator;
 
 import javax.swing.*;
@@ -51,6 +52,7 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         int wellHSize = wellWSize;
 
         JPanel result=new JPanel();
+
         result.setLayout(new BorderLayout());
         result.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, Color.black));
         BufferedImage b_img = new BufferedImage(wellWSize, wellHSize, BufferedImage.TYPE_INT_ARGB);
@@ -71,12 +73,52 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
 //            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(2*sizeOfCell), sizeOfCell, sizeOfCell );
 //            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(3*sizeOfCell), sizeOfCell, sizeOfCell );
 //        }
-
         ImageIcon oicon = new ImageIcon(b_img);
         JLabel lab = new JLabel(oicon);
         result.add(lab,BorderLayout.CENTER);
         return result;
     }
+
+    @Override
+    public void fullFillWell(Well toDisplay) {
+        JPanel p = toDisplay.getWellPanel();
+        p.removeAll();
+
+        int wellWSize = toDisplay.getWidth()*toDisplay.getWellMult();
+        int wellHSize = toDisplay.getHeight()*toDisplay.getWellMult();
+
+
+        BufferedImage b_img = new BufferedImage(wellWSize, wellHSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D    graphics = b_img.createGraphics();
+        graphics.setPaint( Color.WHITE );
+        graphics.fillRect ( 0, 0, b_img.getWidth(), b_img.getHeight() );
+
+        //Filling image with a tile
+        graphics.setPaint(Color.blue);
+        int sizeOfCell = 1;
+        sizeOfCell*=toDisplay.getWellMult();
+
+        int x = 0, y = 0;
+
+        for(int i = 0;i < toDisplay.getHeight(); i++){
+            for(int j = 0;j < toDisplay.getWidth(); j++){
+                if(toDisplay.well[i][j]!=0){
+                    graphics.fillRect(x,y,sizeOfCell,sizeOfCell);
+                }
+                x+=sizeOfCell;
+            }
+            y+=sizeOfCell;
+        }
+
+        //-------------------------
+        ImageIcon oicon = new ImageIcon(b_img);
+        JLabel lab = new JLabel(oicon);
+        p.add(lab,BorderLayout.CENTER);
+
+        p.revalidate();
+        p.repaint();
+    }
+
     private void fillFullGrid(int maxHeight, int maxWidth, JPanel grid, int cellSize, boolean flag, Tile singleTile){
         for(int i=0;i<maxHeight;i++){
             for (int j=0;j<maxWidth;j++){
