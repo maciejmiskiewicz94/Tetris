@@ -74,7 +74,7 @@ public class ProcessingController extends Thread {
                 ThreadsManager.results.removeAll(ThreadsManager.results);
                 threads.removeAll(threads);
                 for(int i = 0;i<iter;i++){
-                    System.out.println(best.get(i).getTiles().size());
+//                    System.out.println(best.get(i).getTiles().size());
                     ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
@@ -134,9 +134,11 @@ public class ProcessingController extends Thread {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
+
         }
         printWell(best.get(0));
         guiRef.computationEnded();
+
     }
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){

@@ -128,7 +128,7 @@ public class TilesManager implements Manager {
             wellWSize = wellWidth*10;
             wellMult=10;
         }
-        else if((wellWidth>50)&&(wellWidth<100)){
+        else if((wellWidth>50)&&(wellWidth<=100)){
             wellWSize = wellWidth*5;
             wellMult=5;
         }

@@ -2,6 +2,8 @@ package data;
 
 import helpers.AlgoHelper;
 
+import java.awt.*;
+
 /**
  * Created by Borys on 10/16/16.
  */
@@ -10,6 +12,7 @@ public class ProcessingTile extends Tile {
     public Tile[] fourTypes;
     private int numberOfSuchTiles;
     private int tileId;
+    private Color tileColor;
 
     public ProcessingTile(int w, int h, int[][] tile, int id) {
         super(w, h, tile);
@@ -27,6 +30,7 @@ public class ProcessingTile extends Tile {
 //        helper.seeTheTiles(fourTypes);
         this.numberOfSuchTiles = 1;
         this.tileId = id;
+        this.tileColor = new Color((id*10)%255,(id*100)%255,(id*10)%255);
     }
     public ProcessingTile(ProcessingTile t){
         super(t);
@@ -42,6 +46,7 @@ public class ProcessingTile extends Tile {
 
         this.numberOfSuchTiles = t.getNumberOfSuchTiles();
         this.tileId = t.getId();
+        this.tileColor=t.getTileColor();
     }
     public void setNumerOfSuchTiles(int num){
         this.numberOfSuchTiles = num;
@@ -64,5 +69,9 @@ public class ProcessingTile extends Tile {
 
     public int getId() {
         return this.tileId;
+    }
+
+    public Color getTileColor() {
+        return tileColor;
     }
 }
