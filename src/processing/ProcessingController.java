@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 
+import static javax.swing.text.html.HTML.Tag.HEAD;
+
 /**
  * Created by Borys on 11/21/16.
  */
@@ -75,7 +77,7 @@ public class ProcessingController extends Thread {
                 ThreadsManager.results.removeAll(ThreadsManager.results);
                 threads.removeAll(threads);
                 for(int i = 0;i<iter;i++){
-                    System.out.println(best.get(i).getTiles().size());
+//                    System.out.println(best.get(i).getTiles().size());
                     ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
@@ -145,9 +147,11 @@ public class ProcessingController extends Thread {
                 }
                 guiRef.serializationStart(ThreadsManager.results,tiless);
             }
+
         }
         printWell(best.get(0));
         guiRef.computationEnded();
+
     }
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){

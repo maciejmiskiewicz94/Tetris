@@ -135,6 +135,7 @@ public class PackingAlgorithm {
         }
         doubledHeightWell.well=nWell;
         doubledHeightWell.setHeight(well.getHeight()*2);
+        doubledHeightWell.setTiles(well.getTiles());
         return doubledHeightWell;
     }
 }
