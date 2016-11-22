@@ -105,8 +105,8 @@ public class PackingAlgorithm {
                         int maxHCoordinate = coords.get(0);
                         for(int l=0;l<coords.size()-1;){
                             result.well[coords.get(l)][coords.get(l+1)] = tileId;
-                            l+=2;
                             if(coords.get(l)>maxHCoordinate) maxHCoordinate = coords.get(l);
+                            l+=2;
                         }
                         result.setMaxHeight(maxHCoordinate);
                         break;

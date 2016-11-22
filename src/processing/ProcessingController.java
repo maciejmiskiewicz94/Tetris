@@ -154,6 +154,8 @@ public class ProcessingController extends Thread {
                 break;
             }
         }
+        System.out.println("BEST QUALITY - "+best.get(0).getQuality());
+        System.out.println("MAX HEIGHT - "+best.get(0).getMaxHeight());
         printWell(best.get(0));
         guiRef.computationEnded();
 
