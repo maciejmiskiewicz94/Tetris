@@ -2,6 +2,7 @@ package processing;
 
 import controller.ThreadsManager;
 import data.ProcessingTile;
+import data.Tile;
 import data.Well;
 import gui.MainGui;
 import main.Main;
@@ -134,6 +135,16 @@ public class ProcessingController extends Thread {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
+            if(ThreadsManager.serializeOnDemand==true)
+            {
+                ThreadsManager.serializeOnDemand=false;
+                ArrayList<ArrayList<ProcessingTile>> tiless=new ArrayList<ArrayList<ProcessingTile>>();
+                for(int i=0;i<ThreadsManager.results.size();i++)
+                {
+                    tiless.set(i,ThreadsManager.results.get(i).getTiles());
+                }
+                guiRef.serializationStart(ThreadsManager.results,tiless);
+            }
         }
         printWell(best.get(0));
         guiRef.computationEnded();

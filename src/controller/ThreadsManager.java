@@ -25,7 +25,7 @@ public class ThreadsManager {
         else return 0;
     };
     public static int bounded = -1;
-
+    public  static boolean serializeOnDemand = false;
     MainGui guiRef;
 
     private Manager manager;
@@ -71,5 +71,7 @@ public class ThreadsManager {
     public interface Communicator{
         public void displayOneStepOfComputation(ArrayList<Well> wells);
         public void computationEnded();
+        public void serializationStart(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList);
     }
+
 }

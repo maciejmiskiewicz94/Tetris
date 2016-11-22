@@ -26,8 +26,9 @@ public class Serialization {
         this.id=id;
     }
 
-    public void serialize(ArrayList<Well> wellList, ArrayList<ArrayList<Tile>> tilesOfTilesList)
+    public void serialize(ArrayList<Well> wellList, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList, String path)
     {
+
         String output="";
         int k = wellList.size();
         output+=Integer.toString(k)+System.lineSeparator();
@@ -45,7 +46,7 @@ public class Serialization {
                 }
                 output+=" "+System.lineSeparator();
             }
-            ArrayList<Tile> currentTiles=tilesOfTilesList.get(i);
+            ArrayList<ProcessingTile> currentTiles=tilesOfTilesList.get(i);
             output+=Integer.toString(currentTiles.size())+System.lineSeparator();
             for(int iter=0;iter<currentTiles.size();iter++)
             {
@@ -62,13 +63,13 @@ public class Serialization {
                 }
             }
         }
+        Writer writer = null;
+
         try
         {
-            File file=new File("currentProgramState.txt");
-            FileWriter fw=new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw=new BufferedWriter(fw);
-            bw.write(output);
-            bw.close();
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(path), "utf-8"));
+            writer.write(output);
         }
         catch (Exception e)
         {
@@ -76,7 +77,7 @@ public class Serialization {
         }
 
     }
-    public void deserialize (File file, TilesManager manager)
+    public void deserialize (File file)
     {
         TilesGuiGenerator TGG=new TilesGuiGenerator(1);
         int width=0;

@@ -1,5 +1,7 @@
 package gui;
 
+import data.ProcessingTile;
+import data.Tile;
 import helpers.AlgoHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -8,6 +10,7 @@ import controller.ThreadsManager;
 import controller.TilesManager;
 import data.Well;
 import controller.interfaces.Manager;
+import helpers.Serialization;
 import processing.ProcessingUnit;
 
 import javax.swing.*;
@@ -55,9 +58,11 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
     * Extra components
     * */
     private File userFile;
+    private File userFileWithState;
     private Manager manager;
     private int backtrackingParam;
     private ThreadsManager thManager;
+    private String pathOfState;
 
     private ArrayList<ProcessingUnit> processingUnits;
 
@@ -69,7 +74,6 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         algorithmhelper = new AlgoHelper(1);
-
         chooseTilesButton.setEnabled(false);
         startButton.setEnabled(false);
         pauseButton.setEnabled(false);
@@ -88,6 +92,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         wellPanel.add(scrollPanel, BorderLayout.CENTER);
         scrollPanel.getViewport().add(properWellPanel);
 
+        Serialization serializer = new Serialization(1);
 
         buttonPanel.setBorder(BorderFactory.createTitledBorder("Program control"));
         //Extra initializations with lower priority
@@ -142,13 +147,42 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         saveCurrentStateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFileChooser openFile = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT file", "txt");
+                openFile.setFileFilter(filter);
+                int result = openFile.showDialog(null, "Choose directory to save program state");
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    setStatus("User has chosen a proper file.");
+                    userFileWithState = openFile.getSelectedFile();
+                    System.out.println(userFileWithState.getPath());
+                    ThreadsManager.serializeOnDemand = true;
+                    //  serializer.deserialize(userFileWithState);
+                }
+
                 scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
                 wellPanel.revalidate();
                 wellPanel.repaint();
+
+            }
+        });
+        loadProgramStateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser openFile = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT file", "txt");
+                openFile.setFileFilter(filter);
+                int result = openFile.showDialog(null, "Choose file with saved program state");
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    setStatus("User has chosen a proper file.");
+                    userFileWithState = openFile.getSelectedFile();
+                    System.out.println(userFileWithState.getPath());
+                    serializer.deserialize(userFileWithState);
+                }
             }
         });
 
     }
+
 
     private void stopComputation() {
         startNStepsButton.setEnabled(true);
@@ -280,6 +314,12 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
     @Override
     public void computationEnded() {
         stopComputation();
+    }
+
+    @Override
+    public void serializationStart(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList) {
+        Serialization serializer = new Serialization(2);
+        serializer.serialize(wells, tilesOfTilesList, pathOfState);
     }
 
     /**
