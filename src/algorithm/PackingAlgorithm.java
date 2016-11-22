@@ -102,10 +102,13 @@ public class PackingAlgorithm {
                         //PUTTING TILE BECAUSE WE HAVE A PLACE FOR THAT
                         working=false;
 //                        System.out.println("PUTTING A TILE");
+                        int maxHCoordinate = coords.get(0);
                         for(int l=0;l<coords.size()-1;){
                             result.well[coords.get(l)][coords.get(l+1)] = tileId;
                             l+=2;
+                            if(coords.get(l)>maxHCoordinate) maxHCoordinate = coords.get(l);
                         }
+                        result.setMaxHeight(maxHCoordinate);
                         break;
                     }
                     else{

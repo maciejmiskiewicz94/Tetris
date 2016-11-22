@@ -15,6 +15,8 @@ public class Well {
     private int height;
     private double quality;
 
+    private int maxHeight;
+
     private ArrayList<ProcessingTile> tiles;
 
     public int lastAddedTile;
@@ -27,6 +29,7 @@ public class Well {
         this.height=w;
         this.quality = -1;
         this.tiles=new ArrayList<>();
+        this.maxHeight = 0;
     }
     public Well(Well w){
         this.width = w.getWidth();
@@ -45,6 +48,7 @@ public class Well {
             t.add(new ProcessingTile(w.getTiles().get(j)));
         }
         this.tiles=t;
+        this.maxHeight = w.getMaxHeight();
     }
 
     public int getWidth() {
@@ -86,5 +90,12 @@ public class Well {
 
     public void setWellPanel(JPanel pan){
         this.wellPanel=pan;
+    }
+
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+    public void setMaxHeight(int h){
+        this.maxHeight=h;
     }
 }
