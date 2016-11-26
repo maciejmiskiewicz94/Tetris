@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Borys on 10/16/16.
+ * Class which implements DynamicGuiGenerator interface
+ * It is responsible for various processes to generate different GUI elements
  */
 public class TilesGuiGenerator implements DynamicGuiGenerator {
 
@@ -45,7 +47,7 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
 
         return result;
     }
-    public JPanel generateWell(int maxWidth, int m)
+    public JPanel generateWell(int maxWidth)
     {
 
         int wellWSize = maxWidth;
@@ -60,19 +62,6 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
         graphics.setPaint( Color.WHITE );
         graphics.fillRect ( 0, 0, b_img.getWidth(), b_img.getHeight() );
 
-//        if(!test){
-//            test=true;
-//            graphics.setPaint(Color.blue);
-//            int sizeOfCell = 1;
-//            sizeOfCell*=m;
-//            graphics.fillRect ( 0, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( 2*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( 3*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-sizeOfCell, sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(2*sizeOfCell), sizeOfCell, sizeOfCell );
-//            graphics.fillRect ( 4*sizeOfCell, b_img.getHeight()-(3*sizeOfCell), sizeOfCell, sizeOfCell );
-//        }
         ImageIcon oicon = new ImageIcon(b_img);
         JLabel lab = new JLabel(oicon);
         result.add(lab,BorderLayout.CENTER);
@@ -145,9 +134,6 @@ public class TilesGuiGenerator implements DynamicGuiGenerator {
                 grid.add(lab);
             }
         }
-    }
-    private void fillFullGrid(int maxHeight, int maxWidth, JPanel grid, int cellSize){
-        fillFullGrid(maxHeight,maxWidth,grid,cellSize,false,new Tile(0,0,new int[4][4]));
     }
     public ArrayList<JSpinner> getSpinners(){
         return this.spinners;

@@ -15,12 +15,13 @@ import java.util.Stack;
 
 /**
  * Created by Borys on 10/16/16.
+ * Class which implements Manager interface and provides resources management tools and different components interaction methods
  */
 public class TilesManager implements Manager {
 
     private ProcessingTile[] tiles;
 
-    private ArrayList<Well> wells; //List of all wells to use anywhere
+    private ArrayList<Well> wells; //List of all wells
 
     private int wellWidth;
     private int wellMult;
@@ -33,6 +34,10 @@ public class TilesManager implements Manager {
     public int backtrackingParam;
     private ArrayList<JSpinner> spinners;
 
+    /**
+     * Constructor for class TileManager
+     * @param f - File to read tiles from
+     */
     public TilesManager(File f){
         this.maxTileHeight=0;
         this.maxTileWidth=0;
@@ -94,11 +99,6 @@ public class TilesManager implements Manager {
     }
 
     @Override
-    public ProcessingTile[] getTiles() {
-        return tiles;
-    }
-
-    @Override
     public ArrayList<Well> getWells() {
         return wells;
     }
@@ -137,7 +137,7 @@ public class TilesManager implements Manager {
             wellMult=1;
         }
         for(int i=0;i<backTrack;i++){
-            JPanel result = guiGenerator.generateWell(wellWSize, wellMult);
+            JPanel result = guiGenerator.generateWell(wellWSize);
             Well tmp = new Well(wellWidth,result,wellMult);
             wells.add(tmp);
         }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Maciej on 2016-10-19.
+ * Class representing Well in our program
  */
 public class Well {
 
@@ -21,6 +22,12 @@ public class Well {
 
     public int lastAddedTile;
 
+    /**
+     * Basic constructor
+     * @param w - Width of the Well
+     * @param panel - Jpanel which responsible for displaying well content
+     * @param mult - Multiplier which is responsible for correct displaying tiles on the screen
+     */
     public Well(int w, JPanel panel, int mult) {
         this.width = w;
         this.wellPanel=panel;
@@ -31,6 +38,11 @@ public class Well {
         this.tiles=new ArrayList<>();
         this.maxHeight = 0;
     }
+
+    /**
+     * Constructor to copy given instance of class Well, except for wellPanel which is copied by reference
+     * @param w - Well to copy
+     */
     public Well(Well w){
         this.width = w.getWidth();
         this.height = w.getHeight();
@@ -50,6 +62,8 @@ public class Well {
         this.tiles=t;
         this.maxHeight = w.getMaxHeight();
     }
+
+    //Getters and setters for Well class
 
     public int getWidth() {
         return width;

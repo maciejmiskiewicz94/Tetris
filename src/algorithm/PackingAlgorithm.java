@@ -7,18 +7,26 @@ import java.util.ArrayList;
 
 /**
  * Created by Maciej on 2016-11-18.
+ * Class containing algorithm to find firs available place for given tile on a given Well
  */
 public class PackingAlgorithm {
 
-    public Well resultingWell=null;
-
+    /**
+     * Empty constructor
+     */
     public PackingAlgorithm(){
     }
 
+    /**
+     * Main method of the class
+     * @param well - Well to find a place for a given tile
+     * @param tile - Tile to place on the Well
+     * @param tileId - Number to represent tile with
+     * @return Return well with a placed tile on it
+     */
     public Well runAlgorithm(Well well, Tile tile, int tileId)
     {
         Well result=well;
-        int[][] kernel;
         int currentHeight=tile.getHeight()-1;
         int counter=0;
         int mainCounter=0;
@@ -128,6 +136,11 @@ public class PackingAlgorithm {
         return result;
     }
 
+    /**
+     * Helper method to increase current well size, if needed
+     * @param well - Well to increase size
+     * @return Well with increased height by the factor of 2
+     */
     private Well increaseWellSize(Well well) {
         Well doubledHeightWell = new Well(well.getWidth(),well.wellPanel,well.wellMult);
         int[][] nWell = new int[well.getHeight()*2][well.getWidth()];
