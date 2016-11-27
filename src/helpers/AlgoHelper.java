@@ -4,6 +4,7 @@ import data.Tile;
 import data.Well;
 
 import java.awt.*;
+import java.awt.geom.Arc2D;
 import java.util.Stack;
 
 /**
@@ -38,10 +39,16 @@ public class AlgoHelper {
                 {
                     int area=well.getWidth()*(wellHeight-i-1);
                     double qty =(double) (int)counter/(int)area;
+               //     printWell(well);
+               //     System.out.println(Double.toString(qty));
                    // Well well1=well;
                     //int mini = advancedFunction(well1);
                     //int mini=1;
                     //double output=(double) qty/mini;
+                    if(well.well[well.getHeight()-1][0]==0)
+                    {
+                        qty=qty/2;
+                    }
                     return qty;
                 }
             }
@@ -128,7 +135,7 @@ public class AlgoHelper {
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){
             for(int j=0;j<wellToPrint.getWidth();j++){
-                System.out.print(wellToPrint.well[i][j]);
+                System.out.print(wellToPrint.well[i][j]+" ");
             }
             System.out.println();
         }

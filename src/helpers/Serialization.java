@@ -87,7 +87,7 @@ public class Serialization {
             for(int i=0;i<backtrack;i++)
             {
                 width=sc.nextInt();
-                wells1.add(i, new Well(width,TGG.generateWell(width,getMultiplier(width)), getMultiplier(width)));
+                wells1.add(i, new Well(width,TGG.generateWell(width), getMultiplier(width)));
                 wells1.get(i).setHeight(sc.nextInt());
                 sc.nextLine();
                 for(int h=0;h<wells1.get(i).getWidth();h++)
