@@ -49,6 +49,8 @@ public class AlgoHelper {
                     {
                         qty=qty/2;
                     }
+                    double advanced=advanced1(well);
+                    qty=qty/advanced;
                     return qty;
                 }
             }
@@ -59,7 +61,35 @@ public class AlgoHelper {
         //quality=(counter/(wellSource.getWidth()*maxHeight))*100;
         return -1;
     }
-
+    public double advanced1(Well well)
+    {
+        System.out.println(Integer.toString(well.getMaxHeight()));
+        double result=0;
+        int max=well.getHeight();
+        for(int a=1;a<max;a+=2) {
+            for (int i = 0; i < well.getWidth(); i++) {
+                if (well.well[well.getHeight() - a][i] == 0) {
+                    result++;
+                }
+            }
+        }
+//        for (int i = 0; i < well.getWidth(); i++) {
+//            if (well.well[well.getHeight()-2][i] == 0) {
+//                result+=1/2;
+//            }
+//        }
+//        for (int i = 0; i < well.getWidth(); i++) {
+//            if (well.well[well.getHeight()-3][i] == 0) {
+//                result++;
+//            }
+//        }
+//        for (int i = 0; i < well.getWidth(); i++) {
+//            if (well.well[well.getHeight()-5][i] == 0) {
+//                result++;
+//            }
+//        }
+        return result;
+    }
     public void seeTheTiles(Tile[] fourTypes) {
         for(int i=0;i<fourTypes.length;i++)
         {
