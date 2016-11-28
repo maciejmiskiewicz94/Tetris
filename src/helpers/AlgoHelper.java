@@ -15,6 +15,34 @@ public class AlgoHelper {
     public AlgoHelper(int id){
         this.id=id;
     }
+    public double calculateDensity(Well well)
+    {
+        int counter=0;
+        int zerosCount=0;
+        double density=0;
+        for(int i=well.getHeight()-1;i>=0;i--) {
+            for (int j = 0; j < well.getWidth(); j++) {
+                if(well.well[i][j]!=0)
+                {
+                    counter++;
+                }
+                else if(well.well[i][j]==0)
+                {
+                    zerosCount++;
+                }
+                if(zerosCount==well.getWidth())
+                {
+                    int area=well.getWidth()*(well.getHeight()-i);
+                    double qty =(double) (int)counter/(int)area;
+
+
+                    return qty;
+                }
+            }
+            zerosCount=0;
+        }
+        return density;
+    }
     public double calculateQuality(Well well)
     {
         int quality=0;
@@ -39,12 +67,7 @@ public class AlgoHelper {
                 {
                     int area=well.getWidth()*(wellHeight-i-1);
                     double qty =(double) (int)counter/(int)area;
-               //     printWell(well);
-               //     System.out.println(Double.toString(qty));
-                   // Well well1=well;
-                    //int mini = advancedFunction(well1);
-                    //int mini=1;
-                    //double output=(double) qty/mini;
+
                     if(well.well[well.getHeight()-1][0]==0)
                     {
                         qty=qty/2;
@@ -63,7 +86,6 @@ public class AlgoHelper {
     }
     public double advanced1(Well well)
     {
-        System.out.println(Integer.toString(well.getMaxHeight()));
         double result=0;
         int max=well.getHeight();
         for(int a=1;a<max;a+=2) {
@@ -73,7 +95,7 @@ public class AlgoHelper {
                 }
             }
         }
-//       
+//
         return result;
     }
     public void seeTheTiles(Tile[] fourTypes) {

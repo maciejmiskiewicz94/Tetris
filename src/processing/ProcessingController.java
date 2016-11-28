@@ -4,6 +4,7 @@ import controller.ThreadsManager;
 import data.ProcessingTile;
 import data.Well;
 import gui.MainGui;
+import helpers.AlgoHelper;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -132,6 +133,7 @@ public class ProcessingController extends Thread {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
+
             if(ThreadsManager.serializeOnDemand==true)
             {
                 ThreadsManager.serializeOnDemand=false;
@@ -148,6 +150,15 @@ public class ProcessingController extends Thread {
                 break;
             }
         }
+        AlgoHelper helpp=new AlgoHelper(2);
+        Double densities[]=new Double[best.size()];
+        String dens="";
+        for(int i=0;i<best.size();i++)
+        {
+            densities[i]=helpp.calculateDensity(best.get(i));
+            dens+="Density "+ Integer.toString(i+1)+": "+densities[i]+System.lineSeparator();
+        }
+        JOptionPane.showMessageDialog(null, dens, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("BEST QUALITY - "+best.get(0).getQuality());
         System.out.println("MAX HEIGHT - "+best.get(0).getMaxHeight());
         printWell(best.get(0));
