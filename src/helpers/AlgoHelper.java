@@ -73,21 +73,7 @@ public class AlgoHelper {
                 }
             }
         }
-//        for (int i = 0; i < well.getWidth(); i++) {
-//            if (well.well[well.getHeight()-2][i] == 0) {
-//                result+=1/2;
-//            }
-//        }
-//        for (int i = 0; i < well.getWidth(); i++) {
-//            if (well.well[well.getHeight()-3][i] == 0) {
-//                result++;
-//            }
-//        }
-//        for (int i = 0; i < well.getWidth(); i++) {
-//            if (well.well[well.getHeight()-5][i] == 0) {
-//                result++;
-//            }
-//        }
+//       
         return result;
     }
     public void seeTheTiles(Tile[] fourTypes) {
