@@ -137,17 +137,18 @@ public class ProcessingController extends Thread {
         AlgoHelper helpp=new AlgoHelper(2);
 
         long stopTime = System.currentTimeMillis();
-        double elapsedTime = (stopTime - startTime)/1000;
-        System.out.println("COMPUTATION TIME: "+(elapsedTime)+" seconds");
+        long elapsedTime = (stopTime - startTime)/1000;
+        long miliSec = (stopTime - startTime) - elapsedTime*1000;
+        System.out.println("COMPUTATION TIME: "+(elapsedTime+"."+miliSec)+" seconds");
 
         String dens="";
         for(int i=0;i<best.size();i++)
         {
             dens+="Density "+ Integer.toString(i+1)+": "+helpp.calculateDensity(best.get(i))+System.lineSeparator();
         }
-        dens+="TOTAL TIME : "+elapsedTime+" SECONDS"+System.lineSeparator();
+        dens+="TOTAL TIME : "+(elapsedTime+"."+miliSec)+" SECONDS"+System.lineSeparator();
         JOptionPane.showMessageDialog(null, dens, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-        
+
         System.out.println("BEST QUALITY - "+best.get(0).getQuality());
         System.out.println("MAX HEIGHT - "+best.get(0).getMaxHeight());
 //        printWell(best.get(0));
