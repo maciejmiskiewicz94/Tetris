@@ -79,11 +79,15 @@ public class AlgoHelper {
             }
             zerosCount=0;
         }
-
-
+    return -1;}
+//        int area=well.getWidth()*well.getHeight();
+//        double qty=(int)counter/(int)area;
+//        double advanced=advanced1(well);
+//        qty=qty/advanced;
+//        return qty;
         //quality=(counter/(wellSource.getWidth()*maxHeight))*100;
-        return -1;
-    }
+        //return -1;
+
     public double advanced1(Well well)
     {
         double result=0;
@@ -96,6 +100,13 @@ public class AlgoHelper {
             }
         }
 //
+        for(int m=0;m<well.getWidth();m++)
+        {
+            if(well.well[well.getWidth()-3][m]==0)
+            {
+                result++;
+            }
+        }
         return result;
     }
     public void seeTheTiles(Tile[] fourTypes) {
