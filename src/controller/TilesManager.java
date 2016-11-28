@@ -89,11 +89,19 @@ public class TilesManager implements Manager {
         return spinners;
     }
 
-    public int prepareForStart(){
+    public int prepareForStart(int valueFromGlobal){
         int totalNumberOfTiles=0;
-        for(int i=0;i<spinners.size();i++){
-            tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
-            totalNumberOfTiles+=tiles[i].getNumberOfSuchTiles();
+        if(valueFromGlobal>0){
+            for (ProcessingTile tile : tiles) {
+                tile.setNumerOfSuchTiles(valueFromGlobal);
+                totalNumberOfTiles+=tile.getNumberOfSuchTiles();
+            }
+        }
+        else{
+            for(int i=0;i<spinners.size();i++){
+                tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
+                totalNumberOfTiles+=tiles[i].getNumberOfSuchTiles();
+            }
         }
         return totalNumberOfTiles;
     }

@@ -36,7 +36,7 @@ public interface Manager {
      * Method to gather information about total number of tiles
      * @return Integer representing total numebr of tiles
      */
-    int prepareForStart();
+    int prepareForStart(int valueFromGlobal);
 
     /**
      * Getter for all wells

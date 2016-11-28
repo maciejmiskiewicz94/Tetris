@@ -280,7 +280,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
     private void start(int startParam) {
         ThreadsManager.stopped = false;
         try {
-            generateProcessingUnits(manager.prepareForStart(), startParam); //Start algorithm
+            generateProcessingUnits(manager.prepareForStart(tileGui.getValueForAllTiles()), startParam); //Start algorithm
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

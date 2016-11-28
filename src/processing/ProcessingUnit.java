@@ -35,7 +35,7 @@ public class ProcessingUnit extends Thread{
         this.lock=lock;
     }
     public void run(){
-        System.out.println("Thread started : id : " + id);
+//        System.out.println("Thread started : id : " + id);
         PackingAlgorithm pack = new PackingAlgorithm();
         AlgoHelper algo=new AlgoHelper(1);
 

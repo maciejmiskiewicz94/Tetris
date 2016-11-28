@@ -2,18 +2,12 @@ package processing;
 
 import controller.ThreadsManager;
 import data.ProcessingTile;
-import data.Tile;
 import data.Well;
 import gui.MainGui;
-import jdk.nashorn.internal.ir.ThrowNode;
-import main.Main;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.locks.Lock;
-
-import static javax.swing.text.html.HTML.Tag.HEAD;
 
 /**
  * Created by Borys on 11/21/16.

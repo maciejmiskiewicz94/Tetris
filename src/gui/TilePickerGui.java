@@ -21,6 +21,7 @@ public class TilePickerGui extends JFrame {
     private JButton clearButton;
     private JScrollPane paneScrollPane;
     private JPanel tilesPanel;
+    private JSpinner globalChange;
 
     public TilePickerGui() {
         super("Tetris simulator (tiles picker window)");
@@ -36,10 +37,13 @@ public class TilePickerGui extends JFrame {
         rootPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
         acceptTilesButton = new JButton("Accept tiles");
         clearButton = new JButton("Clear");
+        globalChange = new JSpinner();
+        globalChange.setModel(new SpinnerNumberModel(0, 0, 10000, 1));
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BorderLayout());
         buttonsPanel.add(acceptTilesButton, BorderLayout.CENTER);
         buttonsPanel.add(clearButton, BorderLayout.AFTER_LAST_LINE);
+        buttonsPanel.add(globalChange,BorderLayout.BEFORE_FIRST_LINE);
 
         paneScrollPane = new JScrollPane();
         paneScrollPane.setPreferredSize(new Dimension(300, 350));
@@ -58,6 +62,9 @@ public class TilePickerGui extends JFrame {
                 setVisible(false);
             }
         });
+    }
+    public int getValueForAllTiles(){
+        return (int) globalChange.getValue();
     }
 
     public void showTiles(Stack<JPanel> jPanels) {
