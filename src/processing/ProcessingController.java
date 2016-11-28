@@ -62,6 +62,8 @@ public class ProcessingController extends Thread {
     }
 
     public void run(){
+        long startTime = System.currentTimeMillis();
+
         int iter = 0;
         if(ThreadsManager.results.size()>1){
             iter=backTrack;
@@ -114,25 +116,7 @@ public class ProcessingController extends Thread {
                 }
             }
             total--;
-//            System.out.println("BEST TILES:");
-//            for(int l=0;l<best.size();l++){
-//                printWell(best.get(l));
-//                int count =0 ;
-//                for(int k=0;k<best.get(l).getTiles().size();k++){
-//                    int n = best.get(l).getTiles().get(k).getNumberOfSuchTiles();
-//                    count+=n;
-//                }
-//                System.out.println("NUMBER OF TILES - "+ count);
-//                System.out.println();
-//            }
-//            System.out.println(":-------------:");
             guiRef.displayOneStepOfComputation(best);
-
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
 
             if(ThreadsManager.serializeOnDemand==true)
             {
@@ -145,7 +129,7 @@ public class ProcessingController extends Thread {
                 guiRef.serializationStart(ThreadsManager.results,tiless);
             }
 
-            System.out.println(ThreadsManager.stopped);
+//            System.out.println(ThreadsManager.stopped);
             if(ThreadsManager.stopped){
                 break;
             }
@@ -161,9 +145,12 @@ public class ProcessingController extends Thread {
         JOptionPane.showMessageDialog(null, dens, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("BEST QUALITY - "+best.get(0).getQuality());
         System.out.println("MAX HEIGHT - "+best.get(0).getMaxHeight());
-        printWell(best.get(0));
-        guiRef.computationEnded();
+//        printWell(best.get(0));
 
+        long stopTime = System.currentTimeMillis();
+        double elapsedTime = (stopTime - startTime)/1000;
+        System.out.println("COMPUTATION TIME: "+(elapsedTime)+" seconds");
+        guiRef.computationEnded();
     }
     public void printWell(Well wellToPrint){
         for(int i=0;i<wellToPrint.getHeight();i++){
