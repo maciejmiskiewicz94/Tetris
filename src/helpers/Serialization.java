@@ -1,5 +1,6 @@
 package helpers;
 
+import controller.ThreadsManager;
 import controller.TilesManager;
 import data.ProcessingTile;
 import data.Tile;
@@ -75,7 +76,6 @@ public class Serialization {
         {
             e.printStackTrace();
         }
-
     }
     public void deserialize (File file)
     {
