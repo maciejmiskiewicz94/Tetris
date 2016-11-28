@@ -140,16 +140,14 @@ public class ProcessingController extends Thread {
         double elapsedTime = (stopTime - startTime)/1000;
         System.out.println("COMPUTATION TIME: "+(elapsedTime)+" seconds");
 
-        double densities[]=new double[best.size()];
         String dens="";
-
         for(int i=0;i<best.size();i++)
         {
-            densities[i]=helpp.calculateDensity(best.get(i));
-            dens+="Density "+ Integer.toString(i+1)+": "+densities[i]+System.lineSeparator();
+            dens+="Density "+ Integer.toString(i+1)+": "+helpp.calculateDensity(best.get(i))+System.lineSeparator();
         }
         dens+="TOTAL TIME : "+elapsedTime+" SECONDS"+System.lineSeparator();
         JOptionPane.showMessageDialog(null, dens, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+        
         System.out.println("BEST QUALITY - "+best.get(0).getQuality());
         System.out.println("MAX HEIGHT - "+best.get(0).getMaxHeight());
 //        printWell(best.get(0));
