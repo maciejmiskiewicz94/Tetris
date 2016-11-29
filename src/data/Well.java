@@ -73,7 +73,14 @@ public class Well {
     }
 
     public void setHeight(int height) {
+        int [][] nWell = new int[height][this.getWidth()];
+        for(int i=0;i<this.getHeight();i++){
+            for(int j=0;j<this.getWidth();j++){
+                nWell[i][j] = this.getWell()[i][j];
+            }
+        }
         this.height = height;
+        this.well = nWell;
     }
 
     public double getQuality(){

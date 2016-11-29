@@ -39,6 +39,7 @@ public class ProcessingController extends Thread {
         else{
             for(int i=0;i<backTrack;i++){
                 best.add(wells.get(i));
+                best.get(i).setTiles(tilesToWorkOn.get(i));
             }
         }
         panels = new ArrayList<>();
