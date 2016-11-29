@@ -34,6 +34,8 @@ public class TilesManager implements Manager {
     public int backtrackingParam;
     private ArrayList<JSpinner> spinners;
 
+    private ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList;
+
     /**
      * Constructor for class TileManager
      * @param f - File to read tiles from
@@ -45,6 +47,17 @@ public class TilesManager implements Manager {
         this.wellMult=0;
         readTiles(f);
         guiGenerator = new TilesGuiGenerator(1);
+        this.tilesOfTilesList = new ArrayList<>();
+    }
+    public TilesManager(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList){
+        this.maxTileHeight=0;
+        this.maxTileWidth=0;
+        this.wellWidth=wells.get(0).getWidth();
+        this.wellMult=wells.get(0).getWellMult();
+        guiGenerator = new TilesGuiGenerator(1);
+        this.spinners = new ArrayList<>();
+        this.tilesOfTilesList=tilesOfTilesList;
+
     }
 
     @Override
@@ -91,16 +104,18 @@ public class TilesManager implements Manager {
 
     public int prepareForStart(int valueFromGlobal){
         int totalNumberOfTiles=0;
-        if(valueFromGlobal>0){
-            for (ProcessingTile tile : tiles) {
-                tile.setNumerOfSuchTiles(valueFromGlobal);
-                totalNumberOfTiles+=tile.getNumberOfSuchTiles();
+        if(this.spinners.size()!=0){
+            if(valueFromGlobal>0){
+                for (ProcessingTile tile : tiles) {
+                    tile.setNumerOfSuchTiles(valueFromGlobal);
+                    totalNumberOfTiles+=tile.getNumberOfSuchTiles();
+                }
             }
-        }
-        else{
-            for(int i=0;i<spinners.size();i++){
-                tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
-                totalNumberOfTiles+=tiles[i].getNumberOfSuchTiles();
+            else{
+                for(int i=0;i<spinners.size();i++){
+                    tiles[i].setNumerOfSuchTiles((Integer) spinners.get(i).getValue());
+                    totalNumberOfTiles+=tiles[i].getNumberOfSuchTiles();
+                }
             }
         }
         return totalNumberOfTiles;
@@ -117,12 +132,19 @@ public class TilesManager implements Manager {
     }
 
     @Override
-    public ArrayList<ProcessingTile> getTilesAsArrayList() {
-        ArrayList<ProcessingTile> t = new ArrayList<>();
-        for(int i=0;i<tiles.length;i++){
-            t.add(tiles[i]);
+    public ArrayList<ArrayList<ProcessingTile>> getTilesAsArrayList() {
+        if(this.tilesOfTilesList.size()==0){
+            ArrayList<ProcessingTile> t = new ArrayList<>();
+            for(int i=0;i<tiles.length;i++){
+                t.add(tiles[i]);
+            }
+            ArrayList<ArrayList<ProcessingTile>> res = new ArrayList<ArrayList<ProcessingTile>>();
+            res.add(t);
+            return res;
         }
-        return t;
+        else{
+            return this.tilesOfTilesList;
+        }
     }
 
     @Override

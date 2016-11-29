@@ -54,5 +54,5 @@ public interface Manager {
      * Return tiles as ArrayList
      * @return ArrayList of instances of class ProcessingTile
      */
-    ArrayList<ProcessingTile> getTilesAsArrayList();
+    ArrayList<ArrayList<ProcessingTile>> getTilesAsArrayList();
 }

@@ -31,18 +31,15 @@ public class ThreadsManager {
 
     MainGui guiRef;
 
-    private Manager manager;
-    private ArrayList<ProcessingUnit> threads = new ArrayList<>();
-    ArrayList<ProcessingTile> tiles;
+    ArrayList<ArrayList<ProcessingTile>> tiles;
     ArrayList<Well> wells;
     private int numberOfThreads;
     private int totalNumberOfTiles;
 
     private Lock lock;
 
-    public ThreadsManager(int n, ArrayList<ProcessingTile> tiles, ArrayList<Well> wells, int numberOfTiles, MainGui gui){
+    public ThreadsManager(int n, ArrayList<ArrayList<ProcessingTile>>  tiles, ArrayList<Well> wells, int numberOfTiles, MainGui gui){
         this.numberOfThreads = n;
-        this.threads = new ArrayList<>();
         this.tiles=tiles;
         this.wells=wells;
         this.totalNumberOfTiles=numberOfTiles;

@@ -5,6 +5,7 @@ import controller.TilesManager;
 import data.ProcessingTile;
 import data.Tile;
 import data.Well;
+import gui.MainGui;
 import gui.TilesGuiGenerator;
 import org.omg.CORBA.Environment;
 
@@ -73,46 +74,49 @@ public class Serialization {
         out.write(output.getBytes());
         out.close();
     }
-    public void deserialize (File file)
+    public void deserialize (File file, MainGui gui)
     {
+        wells1 = new ArrayList<>();
+        tiles1 = new ArrayList<>();
         TilesGuiGenerator TGG=new TilesGuiGenerator(1);
         int width=0;
         try (Scanner sc = new Scanner(file)) {
             this.backtrack = sc.nextInt();
-            sc.nextLine();
             for(int i=0;i<backtrack;i++)
             {
                 width=sc.nextInt();
                 wells1.add(i, new Well(width,TGG.generateWell(width), getMultiplier(width)));
                 wells1.get(i).setHeight(sc.nextInt());
-                sc.nextLine();
-                for(int h=0;h<wells1.get(i).getWidth();h++)
+                for(int h=0;h<wells1.get(i).getHeight();h++)
                 {
                     for(int w=0;w<wells1.get(i).getWidth();w++)
                     {
                         wells1.get(i).well[h][w]=sc.nextInt();
                     }
-                    sc.nextLine();
                 }
-                sc.nextLine();
                 int numTiles=sc.nextInt();
-                sc.nextLine();
+                ArrayList<ProcessingTile> tmp = new ArrayList<>();
                 for(int j=0;j<numTiles;j++)
                 {
-                   //TODO readind tiles
-                    int[][]a=null;
-                    ProcessingTile tile=new ProcessingTile(sc.nextInt(),sc.nextInt(),a,j);
-                    for(int l=0;l<tile.getHeight();l++){
-                        for(int k=0;k<tile.getWidth();k++){
-                            tile.getTile()[l][k] = sc.nextInt();
+                    int h = sc.nextInt();
+                    int w = sc.nextInt();
+                    int num = sc.nextInt();
+                    int id = sc.nextInt();
+                    int[][] a= new int[h][w];
+                    for(int l=0;l<h;l++){
+                        for(int k=0;k<w;k++){
+                            a[l][k] = sc.nextInt();
                         }
                     }
-                    tiles1.get(i).add(j,tile);
-
+                    ProcessingTile tile=new ProcessingTile(w,h,a,id);
+                    tile.setNumerOfSuchTiles(num);
+                    tmp.add(tile);
                 }
+                tiles1.add(tmp);
             }
             sc.close();
 
+            gui.deserializationFinish(backtrack,wells1,tiles1);
         }
         catch(FileNotFoundException e)
         {

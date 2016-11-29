@@ -27,17 +27,26 @@ public class ProcessingController extends Thread {
 
     private Lock lock;
 
-    public ProcessingController(int id, ArrayList<ProcessingTile> tilesToWorkOn, ArrayList<Well> wells, int backTrack, Lock lock, int total, boolean fromFile, MainGui gui){
+    public ProcessingController(int id, ArrayList<ArrayList<ProcessingTile>>  tilesToWorkOn, ArrayList<Well> wells, int backTrack, Lock lock, int total, boolean fromFile, MainGui gui){
         this.id=id;
         this.backTrack=backTrack;
         this.lock=lock;
         this.guiRef=gui;
         this.best = new ArrayList<>();
         this.total=total;
-        readAndSetUpBest(tilesToWorkOn, fromFile);
+        if(!fromFile)
+            readAndSetUpBest(tilesToWorkOn.get(0), fromFile);
+        else{
+            for(int i=0;i<backTrack;i++){
+                best.add(wells.get(i));
+            }
+        }
         panels = new ArrayList<>();
         for(int j=0;j<wells.size();j++){
             panels.add(wells.get(j).getWellPanel());
+        }
+        if(total==0){
+            for(int i=0;i<tilesToWorkOn.size();i++) this.total+=tilesToWorkOn.get(0).get(i).getNumberOfSuchTiles();
         }
     }
 

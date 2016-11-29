@@ -65,6 +65,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
     private int backtrackingParam;
     private ThreadsManager thManager;
     private String pathOfState;
+    private boolean fromFile;
 
     private ArrayList<ProcessingUnit> processingUnits;
 
@@ -74,6 +75,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         setContentPane(mainPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.fromFile = false;
         setVisible(true);
         algorithmhelper = new AlgoHelper(1);
         chooseTilesButton.setEnabled(false);
@@ -159,7 +161,6 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
                     System.out.println(userFileWithState.getPath());
                     pathOfState = userFileWithState.getPath();
                     ThreadsManager.serializeOnDemand = true;
-                    //  serializer.deserialize(userFileWithState);
                 }
 
                 scrollPanel.setPreferredSize(new Dimension(wellPanel.getWidth() - 50, wellPanel.getHeight() - 50));
@@ -179,7 +180,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
                     setStatus("User has chosen a proper file.");
                     userFileWithState = openFile.getSelectedFile();
                     System.out.println(userFileWithState.getPath());
-                    serializer.deserialize(userFileWithState);
+                    serializer.deserialize(userFileWithState, MainGui.this);
                 }
             }
         });
@@ -259,6 +260,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
             backtrackingPicker.setEnabled(true);
             saveCurrentStateButton.setEnabled(true);
 
+            this.fromFile = false;
             return loaded;
         } else {
             System.out.println("NO FILE");
@@ -293,7 +295,27 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
         int numberOfSteps = (Integer) startNStepsPicker.getValue();
         if (startParam == 2) ThreadsManager.bounded = numberOfSteps;
         this.thManager = new ThreadsManager(backtrackingParam, manager.getTilesAsArrayList(), manager.getWells(), totalNumberOfTiles, MainGui.this);
-        thManager.initializeThreads(false);
+        thManager.initializeThreads(fromFile);
+    }
+
+    public void deserializationFinish(int backTrack, ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList) {
+        this.manager = new TilesManager(wells, tilesOfTilesList);
+        this.fromFile = true;
+        this.backtrackingParam = backTrack;
+        ArrayList<Well> w = manager.generateWells(backTrack);
+        for (int i = 0; i < backTrack; i++) {
+            wells.get(i).setWellPanel(w.get(i).getWellPanel());
+        }
+
+        chooseTilesButton.setEnabled(true);
+        startButton.setEnabled(true);
+        pauseButton.setEnabled(true);
+        stopButton.setEnabled(true);
+        startNStepsButton.setEnabled(true);
+        startNStepsPicker.setEnabled(true);
+        serializationPicker.setEnabled(true);
+        backtrackingPicker.setEnabled(true);
+        saveCurrentStateButton.setEnabled(true);
     }
 
     private void setStatus(String status) {
