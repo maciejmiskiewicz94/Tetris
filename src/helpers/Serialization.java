@@ -27,23 +27,27 @@ public class Serialization {
         this.id=id;
     }
 
-    public void serialize(ArrayList<Well> wellList, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList, String path)
-    {
+    public void serialize(ArrayList<Well> wellList, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList, String path) throws IOException {
+
+        FileOutputStream out = new FileOutputStream(path);
 
         String output="";
         int k = wellList.size();
         output+=Integer.toString(k)+System.lineSeparator();
+//        writer.println(Integer.toString(k));
 
         for(int i=0;i<wellList.size();i++)
         {
             int a=wellList.get(i).getWidth();
             int b=wellList.get(i).getHeight();
             output+=Integer.toString(a)+" "+Integer.toString(b)+" "+System.lineSeparator();
+//            writer.println(Integer.toString(a)+" "+Integer.toString(b));
             for(int x=0;x<b;x++)
             {
                 for(int y=0;y<a;y++)
                 {
                     output+=Integer.toString(wellList.get(i).well[x][y])+ " ";
+//                    writer.print(Integer.toString(wellList.get(i).well[x][y])+ " ");
                 }
                 output+=" "+System.lineSeparator();
             }
@@ -53,29 +57,21 @@ public class Serialization {
             {
                 int width=currentTiles.get(iter).getWidth();
                 int heighht=currentTiles.get(iter).getHeight();
-                output+=Integer.toString(width)+" "+Integer.toString(heighht)+" "+System.lineSeparator();
+                int numOfTiles = currentTiles.get(iter).getNumberOfSuchTiles();
+                int tileId = currentTiles.get(iter).getId();
+                output+=Integer.toString(width)+" "+Integer.toString(heighht)+" "+numOfTiles+" "+tileId+System.lineSeparator();
                 for(int tileheight=0;tileheight<heighht;tileheight++)
                 {
                     for(int tilewidth=0;tilewidth<width;tilewidth++)
                     {
-                        output+=currentTiles.get(i).getTile()[tileheight][tilewidth]+ " ";
+                        output+=currentTiles.get(iter).getTile()[tileheight][tilewidth]+ " ";
                     }
                     output+=System.lineSeparator();
                 }
             }
         }
-        Writer writer = null;
-
-        try
-        {
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(path), "utf-8"));
-            writer.write(output);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        out.write(output.getBytes());
+        out.close();
     }
     public void deserialize (File file)
     {

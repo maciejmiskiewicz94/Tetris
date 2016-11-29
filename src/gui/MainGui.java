@@ -20,6 +20,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -155,6 +157,7 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
                     setStatus("User has chosen a proper file.");
                     userFileWithState = openFile.getSelectedFile();
                     System.out.println(userFileWithState.getPath());
+                    pathOfState = userFileWithState.getPath();
                     ThreadsManager.serializeOnDemand = true;
                     //  serializer.deserialize(userFileWithState);
                 }
@@ -321,7 +324,11 @@ public class MainGui extends JFrame implements ThreadsManager.Communicator {
     @Override
     public void serializationStart(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList) {
         Serialization serializer = new Serialization(2);
-        serializer.serialize(wells, tilesOfTilesList, pathOfState);
+        try {
+            serializer.serialize(wells, tilesOfTilesList, pathOfState);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

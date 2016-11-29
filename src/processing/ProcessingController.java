@@ -122,11 +122,11 @@ public class ProcessingController extends Thread {
             {
                 ThreadsManager.serializeOnDemand=false;
                 ArrayList<ArrayList<ProcessingTile>> tiless=new ArrayList<ArrayList<ProcessingTile>>();
-                for(int i=0;i<ThreadsManager.results.size();i++)
+                for(int i=0;i<best.size();i++)
                 {
-                    tiless.set(i,ThreadsManager.results.get(i).getTiles());
+                    tiless.add(best.get(i).getTiles());
                 }
-                guiRef.serializationStart(ThreadsManager.results,tiless);
+                guiRef.serializationStart(best,tiless);
             }
 
 //            System.out.println(ThreadsManager.stopped);
