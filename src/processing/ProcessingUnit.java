@@ -5,16 +5,17 @@ import helpers.AlgoHelper;
 import algorithm.PackingAlgorithm;
 import data.ProcessingTile;
 import data.Well;
-import data.Tile;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Borys on 11/15/16.
+ * Class responsible for a single board processing
+ * It goes through the set of all tiles, finds a place for each of them, calculates quality and informs Processing controller
+ * about k - best options (where k is a backtrack parameter)
+ *
+ * It inherits class Thread and implements method run
  */
 public class ProcessingUnit extends Thread{
     private int id;
@@ -26,6 +27,13 @@ public class ProcessingUnit extends Thread{
 
     private ArrayList<Well> afterPutingTiles;
 
+    /**
+     *
+     * @param id - Processing unit id
+     * @param wellToWorkOn - Well to put tiles on
+     * @param backTrack - Backtracking parameter
+     * @param lock - Lock which controls access to shared data between threads
+     */
     public ProcessingUnit(int id, Well wellToWorkOn, int backTrack, Lock lock){
         this.id=id;
         this.well=wellToWorkOn;
@@ -34,35 +42,38 @@ public class ProcessingUnit extends Thread{
         this.backTrack=backTrack;
         this.lock=lock;
     }
+
+    /**
+     * Thread method run which is executed when thread is started
+     */
     public void run(){
 //        System.out.println("Thread started : id : " + id);
         PackingAlgorithm pack = new PackingAlgorithm();
         AlgoHelper algo=new AlgoHelper(1);
 
-
-        for (int i = 0; i < tiles.size(); i++){
+        for (int i = 0; i < tiles.size(); i++){ //Main loop of the method, it goes through the all tiles
             if(tiles.get(i).getNumberOfSuchTiles()>0){
                 ArrayList<Well> localList = new ArrayList<>();
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 4; j++) { //Loop which checks placements for all 4 rotations of a tile
                     Well tmp = new Well(well);
-                    tmp = pack.runAlgorithm(tmp, tiles.get(i).fourTypes[j], tiles.get(i).getId());
-                    tmp.setQuality(algo.calculateQuality(tmp));
+                    tmp = pack.runAlgorithm(tmp, tiles.get(i).fourTypes[j], tiles.get(i).getId()); //Finding a place for a tile
+                    tmp.setQuality(algo.calculateQuality(tmp)); //Finding and setting quality for the tile
                     tmp.lastAddedTile = i;
                     localList.add(tmp); //Adding all wells with placed tiles to the list
 //                    System.out.println("TILE - "+i+", SUBTILE - "+j);
 //                    printWell(tmp);
                 }
-                localList.sort(ThreadsManager.cm);
+                localList.sort(ThreadsManager.cm); //Sorting rotations lost by quality
                 afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
             }
         }
-        afterPutingTiles.sort(ThreadsManager.cm);
+        afterPutingTiles.sort(ThreadsManager.cm); //Sorting the total list of wells
         try {
-            lock.lock();
+            lock.lock(); //Acquiring shared resource or wait if resource is busy
             int num = 0;
             if(afterPutingTiles.get(0).getTiles().size()>=backTrack) num = backTrack;
             else num = afterPutingTiles.get(0).getTiles().size();
-            for(int i=0;i<num;i++){
+            for(int i=0;i<num;i++){ //Putting k - best wells into the shared list of wells
                 ThreadsManager.results.add(afterPutingTiles.get(i));
             }
 //            System.out.println("BEST "+backTrack+" WELLS WERE ADDED BY THREAD "+id);
@@ -70,81 +81,4 @@ public class ProcessingUnit extends Thread{
             lock.unlock();
         }
     }
-    /*public void run() {
-        int counter = tiles.length;
-        System.out.println("ExtendsThread : id : " + id);
-       // printWell(well);
-        PackingAlgorithm pack = new PackingAlgorithm();
-        AlgoHelper algo=new AlgoHelper(1);
-        while(counter>0) {
-            afterPutingTiles = new ArrayList<>();
-            for (int i = 0; i < tiles.length; i++)
-                if (tiles[i].getNumberOfSuchTiles() > 0) {
-                    ArrayList<Well> localList = new ArrayList<>();
-//                for(int j=0;j<4;j++){
-//                    printTile(tiles[i].fourTypes[j]);
-//                    System.out.println();
-//                }
-                    for (int j = 0; j < 4; j++) {
-                        Well tmp = new Well(well);
-                        tmp = pack.runAlgorithm(tmp, tiles[i].fourTypes[j], i + 1);
-                        tmp.setQuality(algo.calculateQuality(tmp));
-                        tmp.lastAddedTile = i;
-                        localList.add(tmp); //Adding all wells with placed tiles to the list
-//                    System.out.println("TILE - "+i+", SUBTILE - "+j);
-//                    printWell(tmp);
-                    }
-                    Collections.sort(localList, ((o1, o2) -> {
-                        if (o1.getQuality() < o2.getQuality()) return 1;
-                        else if (o1.getQuality() > o2.getQuality()) return -1;
-                        else return 0;
-                    }));
-                    afterPutingTiles.add(localList.get(0)); //Adding the best well to the global list of best wells
-                }
-
-            Collections.sort(afterPutingTiles, (o1, o2) -> {
-                if (o1.getQuality() < o2.getQuality()) return 1;
-                else if(o1.getQuality() > o2.getQuality()) return -1;
-                else return 0;
-            });
-
-            System.out.println("QUALITY - " + afterPutingTiles.get(0).getQuality());
-//            printWell(afterPutingTiles.get(0));
-
-            well = afterPutingTiles.get(0);
-            int n = tiles[afterPutingTiles.get(0).lastAddedTile].getNumberOfSuchTiles();
-            tiles[afterPutingTiles.get(0).lastAddedTile].setNumerOfSuchTiles(--n);
-            if (tiles[afterPutingTiles.get(0).lastAddedTile].getNumberOfSuchTiles() >= 0) {
-                counter--;
-            }
-        }
-        printWell(afterPutingTiles.get(0));
-//        ThreadsManager.next = afterPutingTiles.get(0);
-//        for(int i=1;i<= 10;i++)
-//        {
-//            tmp=pack.runAlgorithm(well,tiles[i-1],i);
-//            well=tmp;
-//        }
-//        AlgoHelper algo=new AlgoHelper(1);
-//        double quality = algo.calculateQuality(tmp);
-//        printWell(tmp);
-        //printTile(tiles[0]);
-    }
-
-    public void printWell(Well wellToPrint){
-        for(int i=0;i<wellToPrint.getHeight();i++){
-            for(int j=0;j<wellToPrint.getWidth();j++){
-                System.out.print(wellToPrint.well[i][j]);
-            }
-            System.out.println();
-        }
-    }
-    public void printTile(Tile tileToPrint){
-        for(int i=0;i<tileToPrint.getHeight();i++){
-            for(int j=0;j<tileToPrint.getWidth();j++){
-                System.out.print(tileToPrint.getTile()[i][j]);
-            }
-            System.out.println();
-        }
-    }*/
 }

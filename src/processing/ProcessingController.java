@@ -12,10 +12,11 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Borys on 11/21/16.
+ * Class which controls processing part of the application
  */
 public class ProcessingController extends Thread {
 
-    MainGui guiRef;
+    ThreadsManager.Communicator guiRef; //Reference to the gui
 
     private int id;
     private int backTrack;
@@ -27,7 +28,18 @@ public class ProcessingController extends Thread {
 
     private Lock lock;
 
-    public ProcessingController(int id, ArrayList<ArrayList<ProcessingTile>>  tilesToWorkOn, ArrayList<Well> wells, int backTrack, Lock lock, int total, boolean fromFile, MainGui gui){
+    /**
+     *
+     * @param id - Controller id
+     * @param tilesToWorkOn - Set of tiles to work with
+     * @param wells - Set of wells to work with
+     * @param backTrack - Backtrack parameter
+     * @param lock - Lock to control access to shared resources
+     * @param total - Total number of tiles
+     * @param fromFile - Indicator if program state was loaded from file
+     * @param gui - Reference for MainGui
+     */
+    public ProcessingController(int id, ArrayList<ArrayList<ProcessingTile>>  tilesToWorkOn, ArrayList<Well> wells, int backTrack, Lock lock, int total, boolean fromFile, ThreadsManager.Communicator gui){
         this.id=id;
         this.backTrack=backTrack;
         this.lock=lock;
@@ -51,6 +63,9 @@ public class ProcessingController extends Thread {
         }
     }
 
+    /**
+     * Helper method for initial set up
+     */
     private void readAndSetUpBest(ArrayList<ProcessingTile> tilesToWorkOn, boolean fromFile) {
         int n=0;
         if(fromFile) n = backTrack;
@@ -71,6 +86,9 @@ public class ProcessingController extends Thread {
         }
     }
 
+    /**
+     * Main method for the class, works until the tital number of tiles is greater then 0
+     */
     public void run(){
         long startTime = System.currentTimeMillis();
 
@@ -79,17 +97,15 @@ public class ProcessingController extends Thread {
             iter=backTrack;
         }
         else iter=1;
-        while (total>0){
+        while (total>0){ //Main loop for the class
             try {
                 lock.lock();
                 ThreadsManager.results.removeAll(ThreadsManager.results);
                 threads.removeAll(threads);
-                for(int i = 0;i<iter;i++){
-//                    System.out.println(best.get(i).getTiles().size());
+                for(int i = 0;i<iter;i++){ //Processing units creation
                     ProcessingUnit pu = new ProcessingUnit(i, best.get(i),backTrack,lock);
                     threads.add(pu);
                     pu.start();
-//                    System.out.println("SIZE, TH "+i+" - "+best.get(i).getTiles().size());
                 }
             }
             finally {
@@ -102,7 +118,7 @@ public class ProcessingController extends Thread {
                     e.printStackTrace();
                 }
             }
-            ThreadsManager.results.sort(ThreadsManager.cm);
+            ThreadsManager.results.sort(ThreadsManager.cm); //Reults sorting
             best=new ArrayList<>();
             if(ThreadsManager.results.size()>1){
                 if(ThreadsManager.results.size() >=backTrack) iter = backTrack;
@@ -112,7 +128,7 @@ public class ProcessingController extends Thread {
                 }
             }
             else iter=1;
-            for(int i=0;i<iter;i++){
+            for(int i=0;i<iter;i++){ //k - best results are taken
                 best.add(ThreadsManager.results.get(i));
                 best.get(i).setWellPanel(panels.get(i));
                 int lastAdded = ThreadsManager.results.get(i).lastAddedTile;
@@ -128,6 +144,7 @@ public class ProcessingController extends Thread {
             total--;
             guiRef.displayOneStepOfComputation(best);
 
+            //Block for checking parameters
             if(ThreadsManager.serializeOnDemand==true)
             {
                 ThreadsManager.serializeOnDemand=false;
@@ -144,6 +161,7 @@ public class ProcessingController extends Thread {
                 break;
             }
         }
+        //Finalization stage, print and final results passing to snapchat
         AlgoHelper helpp=new AlgoHelper(2);
 
         long stopTime = System.currentTimeMillis();

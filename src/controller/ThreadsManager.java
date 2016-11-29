@@ -15,6 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Borys on 11/17/16.
+ * Class which connects main GUI and Processing controller
  */
 public class ThreadsManager {
 
@@ -29,7 +30,7 @@ public class ThreadsManager {
 
     public static boolean stopped = false;
 
-    MainGui guiRef;
+    Communicator guiRef;
 
     ArrayList<ArrayList<ProcessingTile>> tiles;
     ArrayList<Well> wells;
@@ -38,7 +39,7 @@ public class ThreadsManager {
 
     private Lock lock;
 
-    public ThreadsManager(int n, ArrayList<ArrayList<ProcessingTile>>  tiles, ArrayList<Well> wells, int numberOfTiles, MainGui gui){
+    public ThreadsManager(int n, ArrayList<ArrayList<ProcessingTile>>  tiles, ArrayList<Well> wells, int numberOfTiles, Communicator gui){
         this.numberOfThreads = n;
         this.tiles=tiles;
         this.wells=wells;
@@ -59,19 +60,15 @@ public class ThreadsManager {
             controller = new ProcessingController(1,tiles,wells,numberOfThreads,lock, ThreadsManager.bounded,fromFile, guiRef);
         }
         controller.start();
-//        controller.join();
-//        System.out.println("Controller finished processing!");
-//        boolean result = true;
-//        for(int i=0;i<numberOfThreads;i++){
-//            ProcessingUnit pu = new ProcessingUnit(i, wells.get(0),tiles,numberOfThreads,lock);
-//            threads.add(pu);
-//            pu.start();
-//        }
     }
+
+    /**
+     * Interface to perform callbacks to the main GUI gui
+     */
     public interface Communicator{
-        public void displayOneStepOfComputation(ArrayList<Well> wells);
-        public void computationEnded();
-        public void serializationStart(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList);
+        void displayOneStepOfComputation(ArrayList<Well> wells);
+        void computationEnded();
+        void serializationStart(ArrayList<Well> wells, ArrayList<ArrayList<ProcessingTile>> tilesOfTilesList);
     }
 
 }

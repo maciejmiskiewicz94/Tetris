@@ -52,10 +52,6 @@ public class PackingAlgorithm {
                         result=well;
 //                        System.out.println("INCREASING SIZE");
                     }
-                    //Alternative could be 2 DFS to search
-                    //First goes through the tile, only available cells and remmebers path
-                    //Second goes through the board from starting point and try to recompute path of the first one.\
-//                    System.out.println("CURRENT HIGHT - "+currentHeight);
                     boolean flag = false;
                     int a = 0;
                     initI=i;
@@ -66,11 +62,6 @@ public class PackingAlgorithm {
                     coords = new ArrayList<>();
                     for(;a<tile.getWidth();)
                     {
-//                        if(isAZero){
-//                            a=0;
-//                            isAZero=false;
-//                        }
-//                        System.out.println("A is - "+ a);
                         if(currentHeight>=0) {
 //                            System.out.println("I - "+i+" : J - "+j);
                             if (well.well[well.getHeight()-1-i][j + a] == 0 && tile.getTile()[currentHeight][a] == 1) {
