@@ -104,7 +104,7 @@ public class PackingAlgorithm {
                         int maxHCoordinate = coords.get(0);
                         for(int l=0;l<coords.size()-1;){
                             result.well[coords.get(l)][coords.get(l+1)] = tileId;
-                            if(coords.get(l)>maxHCoordinate) maxHCoordinate = coords.get(l);
+                            if(coords.get(l)<maxHCoordinate) maxHCoordinate = coords.get(l);
                             l+=2;
                         }
                         result.setMaxHeight(maxHCoordinate);
@@ -141,7 +141,7 @@ public class PackingAlgorithm {
             }
         }
         doubledHeightWell.well=nWell;
-        doubledHeightWell.setHeight(well.getHeight()*2);
+        doubledHeightWell.setHeight(well.getHeight()*2, true);
         doubledHeightWell.setTiles(well.getTiles());
         return doubledHeightWell;
     }

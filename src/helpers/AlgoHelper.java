@@ -17,9 +17,9 @@ public class AlgoHelper {
     }
     public double calculateDensity(Well well)
     {
-        int counter=0;
-        int zerosCount=0;
+        int counter=0, zerosCount=0, holes=0;
         double density=0;
+
         for(int i=well.getHeight()-1;i>=0;i--) {
             for (int j = 0; j < well.getWidth(); j++) {
                 if(well.well[i][j]!=0)
@@ -32,16 +32,16 @@ public class AlgoHelper {
                 }
                 if(zerosCount==well.getWidth())
                 {
-                    int area=well.getWidth()*(well.getHeight()-i);
-                    double qty =(double) (int)counter/(int)area;
-
-
-                    return qty;
+//                    System.out.println("Max height - "+well.getMaxHeight()+" : "+i);
+                    int area=well.getWidth()*(well.getHeight()-well.getMaxHeight());
+                    if(area==0) area=1;
+                    density =(double) (int)counter/(int)area;
+                    return density;
                 }
             }
             zerosCount=0;
         }
-        return density;
+        return 0;
     }
     public double calculateQuality(Well well)
     {
@@ -65,7 +65,7 @@ public class AlgoHelper {
                 }
                 if(zerosCount==well.getWidth())
                 {
-                    int area=well.getWidth()*(wellHeight-i-1);
+                    int area=well.getWidth()*(wellHeight-well.getMaxHeight());
                     double qty =(double) (int)counter/(int)area;
 
                     if(well.well[well.getHeight()-1][0]==0)

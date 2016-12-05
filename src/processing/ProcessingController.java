@@ -141,6 +141,12 @@ public class ProcessingController extends Thread {
                     ThreadsManager.results.get(i).getTiles().remove(lastAdded);
                 }
             }
+            if(total == 141){
+                int l =0;
+            }
+//            System.out.println("TOTAL - "+total);
+//            printWell(best.get(0));
+//            System.out.println();
             total--;
             guiRef.displayOneStepOfComputation(best);
 

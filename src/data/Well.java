@@ -82,6 +82,9 @@ public class Well {
         this.height = height;
         this.well = nWell;
     }
+    public void setHeight(int height, boolean flag){
+        this.height = height;
+    }
 
     public double getQuality(){
         return quality;
