@@ -62,6 +62,12 @@ public class TilePickerGui extends JFrame {
                 setVisible(false);
             }
         });
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                globalChange.setValue(0);
+            }
+        });
     }
     public int getValueForAllTiles(){
         return (int) globalChange.getValue();
