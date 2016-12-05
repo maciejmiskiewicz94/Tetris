@@ -39,6 +39,14 @@ public class ThreadsManager {
 
     private Lock lock;
 
+    /**
+     * Basic constructor
+     * @param n Total number
+     * @param tiles
+     * @param wells
+     * @param numberOfTiles
+     * @param gui
+     */
     public ThreadsManager(int n, ArrayList<ArrayList<ProcessingTile>>  tiles, ArrayList<Well> wells, int numberOfTiles, Communicator gui){
         this.numberOfThreads = n;
         this.tiles=tiles;
